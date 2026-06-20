@@ -36,3 +36,8 @@ __pycache__/
 # Local-only real-name presentation build (NEVER commit real names)
 Board pitch/_present/
 Board pitch/build_realnames.sh
+
+# QA scratch from doc rendering (regenerated on demand)
+Board pitch/*.jpg
+Board pitch/raw/
+Board pitch/unpacked/

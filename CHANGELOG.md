@@ -14,6 +14,13 @@ All notable changes to this project are documented here. Format follows
   `CLAUDE.md` operating agreement.
 - Board pitch under `Board pitch/`: a 2-page decision brief (`.docx`) and an
   8-slide deck (`.pptx`), both generated from the `Project planning/` source of
-  truth, plus their build scripts. Leads on margin upside; the deck ends on the
-  ask (read-only access, Azure environment, governance liaisons); the brief adds
-  the developer tooling / hardware / budget request.
+  truth, plus their build scripts. The deck ends on the ask (read-only access,
+  Azure environment, governance liaisons); the brief adds the developer tooling /
+  hardware / budget request.
+
+### Changed
+- Recalibrated the board pitch per stakeholder review: reframed from "convert
+  competitor sell-through for margin" to "give the Owned Brands team the data
+  signals to help WCO sellers win deals and hold margin." Clarified that platform
+  users are the OB sales team, their call targets are WCO sellers + select WCO
+  customers, and the build is solo. Pitch uses the `WCO` / `LCO` aliases.

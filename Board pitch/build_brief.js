@@ -70,42 +70,42 @@ const page1 = [
   ] }),
   new Paragraph({ spacing: { before: 20, after: 0 },
     border: { bottom: { style: BorderStyle.SINGLE, size: 12, color: GREEN, space: 4 } },
-    children: [t("Board Decision Brief", { size: 22, color: GREEN, bold: true })] }),
+    children: [t("Owned Brands Datavers Brief", { size: 22, color: GREEN, bold: true })] }),
   new Paragraph({ spacing: { before: 60, after: 60 }, children: [
-    t("Director, Owned Brands Sales (OB_Vend & OBCO)   ·   June 19, 2026   ·   Status: Discovery / prototype", { size: 16, color: GREY }),
+    t("Jeff Goodman — Director, Sales, Owned Brands   ·   June 19, 2026   ·   Status: Discovery / prototype", { size: 16, color: GREY }),
   ] }),
 
   new Paragraph({ spacing: { before: 40, after: 80 },
     shading: { fill: LIGHT, type: ShadingType.CLEAR },
     border: { left: { style: BorderStyle.SINGLE, size: 18, color: GREEN, space: 8 } },
-    children: [t("Turn competitor sell-through into higher-margin owned-brand revenue.", { bold: true, size: 24, color: INK })] }),
+    children: [t("Give the Owned Brands team the signals to help WCO sellers win deals and hold margin.", { bold: true, size: 24, color: INK })] }),
 
-  kicker("The opportunity"),
-  bullet([t("Every OBCO customer buying a competitor part we cross to an owned brand is a margin-conversion opportunity — and today we can’t see them.", { size: 18 })]),
-  bullet([t("Owned Brands sells as a ", { size: 18 }), t("vendor", { size: 18, italics: true }), t(" inside a distributor. CORE and USD were built for the distributor; they don’t show vendor-side sell-through, competitive conversion, or margin.", { size: 18 })]),
-  bullet([t("The conversion pipeline lives in disconnected spreadsheets. No system tracks it.", { size: 18 })]),
+  kicker("Who we are — and what’s missing"),
+  bullet([t("The Owned Brands (OB) sales team is WCO’s owned-brands ", { size: 18 }), t("vendor", { size: 18, italics: true }), t(" team — our job is to call on WCO sellers and select WCO customers and help them win.", { size: 18 })]),
+  bullet([t("We don’t get the signals: which sellers are about to lose a deal they could win, or where competitive pressure and missing national-brand support are eroding margin.", { size: 18 })]),
+  bullet([t("WCO’s systems (CORE, USD) are built for the distributor, not the vendor lens — so the work lives in disconnected spreadsheets.", { size: 18 })]),
 
   kicker("The solution"),
-  bullet([t("A parallel, vendor-side sales-intelligence and CRM platform inside OBCO — read-only from governed OBCO data, owning only net-new Owned Brands activity.", { size: 18 })]),
+  bullet([t("A read-only, vendor-side intelligence and activity platform inside WCO — it surfaces the signals and tracks our engagement, so we show up at the right time with the right pitch.", { size: 18 })]),
 
   kicker("The value loop — our north star"),
   new Paragraph({ spacing: { after: 80 }, alignment: AlignmentType.CENTER,
     shading: { fill: "F5F5F5", type: ShadingType.CLEAR },
     children: [
-      t("Identify competitor sell-through", { size: 18, bold: true }),
+      t("Surface the signal", { size: 18, bold: true }),
       t("   →   ", { size: 18, color: GREEN, bold: true }),
-      t("cross to an owned-brand equivalent", { size: 18, bold: true }),
+      t("reach the right WCO seller / customer", { size: 18, bold: true }),
       t("   →   ", { size: 18, color: GREEN, bold: true }),
-      t("quantify the margin lift", { size: 18, bold: true }),
+      t("help win the deal & hold margin", { size: 18, bold: true }),
       t("   →   ", { size: 18, color: GREEN, bold: true }),
-      t("equip the rep to convert", { size: 18, bold: true }),
+      t("owned brands grow", { size: 18, bold: true }),
     ] }),
 
   kicker("What it does"),
-  bullet([t("SKU cross-reference engine — competitor part → owned-brand equivalent, living and searchable.", { size: 18 })]),
-  bullet([t("Conversion targets ranked by margin upside, paired with a supply signal.", { size: 18 })]),
-  bullet([t("Vendor-lens CRM — opportunities, quotes-in-progress, calls, demos, and engagements.", { size: 18 })]),
-  bullet([t("AI email-drop (rep emails a note → structured records), datasheet cross-extraction, and a natural-language leadership dashboard.", { size: 18 })]),
+  bullet([t("Competitive product cross database — competitor part → owned-brand equivalent, living and searchable.", { size: 18 })]),
+  bullet([t("Signals that rank where to show up — deals at risk, margin under pressure, conversion openings.", { size: 18 })]),
+  bullet([t("Vendor-lens CRM — opportunities, quotes, calls, visits, demos: our engagement with WCO sellers and customers.", { size: 18 })]),
+  bullet([t("AI email-drop (a note → structured records), datasheet cross-extraction, and a natural-language leadership dashboard.", { size: 18 })]),
   bullet([t("Inventory overlay with a pipeline-weighted demand forecast.", { size: 18 })]),
 
   kicker("Why this is a low-risk yes"),
@@ -116,7 +116,7 @@ const page1 = [
     shading: { fill: GREEN, type: ShadingType.CLEAR },
     children: [
       t("THE ASK   ", { bold: true, size: 18, color: "FFFFFF" }),
-      t("Approve read-only access to governed OBCO sales data (incl. margin/cost) for a defined Owned Brands user group, provision the Azure build environment, and assign governance liaisons. Tooling and budget detail overleaf.", { size: 18, color: "FFFFFF" }),
+      t("Approve read-only access to governed WCO sales data (incl. margin/cost) for the Owned Brands sales team, provision the Azure build environment, and assign governance liaisons. Tooling and budget detail overleaf.", { size: 18, color: "FFFFFF" }),
     ] }),
 ];
 
@@ -128,26 +128,29 @@ const page2 = [
     border: { bottom: { style: BorderStyle.SINGLE, size: 8, color: GREEN, space: 3 } },
     children: [t("Owned Brands Sales Intelligence Platform — the case in one page", { bold: true, size: 22, color: INK })] }),
 
-  h2("The prize: competitor sell-through is owned-brand revenue left on the table"),
+  h2("What’s missing: the signals to be the resource our sellers need"),
   new Paragraph({ spacing: { after: 40 }, children: [t(
-    "Owned-brand product carries materially higher margin than the competitor lines our customers buy today. Each competitor part with an owned-brand cross is revenue we can move up the margin curve — if we can find it. Total addressable lift is [quantify with Data Office once sell-through access is granted].",
+    "The Owned Brands team doesn’t currently receive the signals that identify sellers who need help winning deals they’d otherwise lose, or who are losing margin to competitive pressure or a lack of national-brand support. We can’t be the best version of the resource we’re meant to be without better visibility into the data.",
+    { size: 18 })] }),
+  new Paragraph({ spacing: { after: 40 }, children: [t(
+    "We are WCO’s owned-brands vendor team, and our job is to call on WCO sellers and WCO customers. The better our data, the better we identify the signals that put us in the right place at the right time.",
     { size: 18 })] }),
 
   h2("Why our own systems can’t see it — the vendor blind spot"),
   new Paragraph({ spacing: { after: 40 }, children: [t(
-    "CORE (ERP) and USD (CRM) serve the distributor operating model. Owned Brands operates as a vendor inside it and needs the lens those systems were never built to provide: brand sell-through, competitive conversion, margin, and the surrounding activity — opportunities, quotes, engagements. That gap is why the work lives in spreadsheets.",
+    "Our internal systems serve the distributor operating model. Owned Brands operates as a vendor inside a distributor and needs the lens those systems weren’t built to provide.",
     { size: 18 })] }),
 
-  h2("How it works — one loop, two tiers, one spine"),
-  bullet([t("Two tiers: ", { size: 18 }), t("the OBCO seller channel", { size: 18, bold: true }), t(" (enablement) and ", { size: 18 }), t("OBCO end customers", { size: 18, bold: true }), t(" (demand). Owned-brand selling runs through the channel and into the customer.", { size: 18 })]),
-  bullet([t("The SKU is the spine: one detail view unifies sales, stock, opportunities, crosses, and activity — no siloed dashboards.", { size: 18 })]),
-  bullet([t("Scope of conversion targets is ", { size: 18 }), t("all", { size: 18, bold: true }), t(" OBCO customers — anyone buying competitor product is a target. Platform users are Owned Brands only.", { size: 18 })]),
+  h2("How it works — two tiers, one spine"),
+  bullet([t("Two tiers: ", { size: 18 }), t("the WCO seller channel", { size: 18, bold: true }), t(" (push) and ", { size: 18 }), t("WCO customers", { size: 18, bold: true }), t(" (pull).", { size: 18 })]),
+  bullet([t("The SKU is the spine: one detail view unifies sales, stock, opportunities, crosses, and activity.", { size: 18 })]),
+  bullet([t("Scope of engagements: ", { size: 18 }), t("WCO sellers and select WCO customers", { size: 18, bold: true }), t(" — in collaboration with the WCO seller.", { size: 18 })]),
 
   h2("Capabilities"),
   twoColTable([
-    ["Cross-reference engine", "Competitor → owned-brand part mapping; living, searchable, AI-extracted from datasheets."],
-    ["Conversion + supply", "Targets ranked by margin upside; pipeline-weighted demand forecast surfaces a stock signal."],
-    ["Vendor-lens CRM", "Opportunities, quotes-in-progress, calls, visits, demos, hardware evals — for sellers and customers."],
+    ["Competitive product cross database", "Competitor part → owned-brand mapping; living, searchable, AI-extracted from datasheets."],
+    ["Signals + supply", "Where to show up — deals at risk and margin under pressure; pipeline-weighted demand forecast surfaces a stock signal."],
+    ["Vendor-lens CRM", "Opportunities, quotes-in-progress, calls, visits, demos, hardware evals — tracking OB engagement with WCO sellers and customers."],
     ["AI layer", "Email-drop ingestion to structured records; natural-language leadership dashboard; in-tenant only."],
   ], 2600, 6760),
 
@@ -158,7 +161,7 @@ const page2 = [
 
   h2("Risk boundaries — what we are NOT doing"),
   new Paragraph({ spacing: { after: 30 }, children: [
-    t("No write/update/delete to CORE, USD, or any system of record   ·   no direct production-DB connectivity   ·   no duplication or ownership of OBCO data   ·   no egress outside the Microsoft / Azure boundary.", { size: 18 }),
+    t("No write/update/delete to CORE, USD, or any system of record   ·   no direct production-DB connectivity   ·   no duplication or ownership of WCO data   ·   no egress outside the Microsoft / Azure boundary.", { size: 18 }),
   ]}),
 
   h2("Roadmap"),
@@ -170,16 +173,16 @@ const page2 = [
   ], 2600, 6760),
 
   h2("The Ask"),
-  bullet([t("Read-only data access — ", { size: 18, bold: true }), t("via governed datasets, certified Power BI, or the API layer: sales incl. margin/cost, open orders & backlog, quotes/bids, account/contact/SKU master, inventory. Sole user at launch: the Director, Owned Brands Sales (expandable).", { size: 18 })]),
-  bullet([t("Azure environment — ", { size: 18, bold: true }), t("subscription/resource group under OBCO governance; Entra ID app registration; Azure OpenAI in-tenant; Power BI workspace + certified-dataset read access.", { size: 18 })]),
+  bullet([t("Read-only data access — ", { size: 18, bold: true }), t("via governed datasets, certified Power BI, or the API layer: sales incl. margin/cost, open orders & backlog, quotes/bids, account/contact/SKU master, inventory. Defined user group: the Owned Brands sales team.", { size: 18 })]),
+  bullet([t("Azure environment — ", { size: 18, bold: true }), t("subscription/resource group under WCO governance; Entra ID app registration; Azure OpenAI in-tenant; Power BI workspace + certified-dataset read access.", { size: 18 })]),
   bullet([t("Governance liaisons — ", { size: 18, bold: true }), t("named contacts from Data Office, BI Governance, Cloud Engineering, and IT Security; confirmation of the access workflow and margin/cost classification.", { size: 18 })]),
   bullet([t("Developer tooling & hardware — ", { size: 18, bold: true }), t("one MacBook Pro (or equivalent) as the primary dev workstation; standard dev licensing; incremental Azure consumption budget for the build phase, est. [confirm]/month during Phases 2–4.", { size: 18 })]),
-  new Paragraph({ spacing: { before: 30 }, children: [t("Execution is solo — the Director builds and operates the platform; no additional headcount requested.", { size: 16, italics: true, color: GREY })] }),
+  new Paragraph({ spacing: { before: 30 }, children: [t("Execution is solo — I build and operate the platform as the sole developer; no additional headcount requested.", { size: 16, italics: true, color: GREY })] }),
 ];
 
 const doc = new Document({
   creator: "Owned Brands Sales",
-  title: "Owned Brands Sales Intelligence Platform — Board Decision Brief",
+  title: "Owned Brands Datavers Brief",
   styles: { default: { document: { run: { font: "Arial", size: 18, color: INK } } } },
   numbering: { config: [
     { reference: "bul", levels: [{ level: 0, format: LevelFormat.BULLET, text: "■", alignment: AlignmentType.LEFT,
@@ -188,7 +191,7 @@ const doc = new Document({
   sections: [{
     properties: { page: { size: { width: 12240, height: 15840 }, margin: { top: 1080, right: 1440, bottom: 1080, left: 1440 } } },
     footers: { default: new Footer({ children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [
-      t("Owned Brands Sales Intelligence Platform · Board Decision Brief · Confidential — Internal · ", { size: 14, color: GREY }),
+      t("Owned Brands Datavers Brief · Confidential — Internal · ", { size: 14, color: GREY }),
       new TextRun({ children: [PageNumber.CURRENT], font: "Arial", size: 14, color: GREY }),
       t(" of ", { size: 14, color: GREY }),
       new TextRun({ children: [PageNumber.TOTAL_PAGES], font: "Arial", size: 14, color: GREY }),

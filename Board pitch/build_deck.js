@@ -193,30 +193,37 @@ s.addText("opportunities WCO would otherwise have lost, identified and supported
   x: kx + 0.4, y: 4.7, w: kw - 0.8, h: 0.9, align: "center", fontFace: BODY, fontSize: 15, color: "D6E8DD", lineSpacingMultiple: 1.05 });
 pageNum(s, 7);
 
-// =================== SLIDE 8 — RISK HANDLED ===================
+// =================== SLIDE 8 — DATA FLOW + GOVERNANCE ===================
 s = p.addSlide(); s.background = { color: PAPER };
-kicker(s, "Risk & governance");
-actionTitle(s, "Read-only and in-tenant: zero risk to CORE or USD");
-const colW = (W - 2 * M - 0.4) / 2;
-card(s, M, 2.35, colW, 3.4, "FBECEC");
-s.addText("What we will NOT do", { x: M + 0.3, y: 2.55, w: colW - 0.6, h: 0.4, fontFace: HEAD, bold: true, fontSize: 16, color: "A6322B" });
+kicker(s, "Architecture & governance");
+actionTitle(s, "Read-only in, governed all the way through, the win out");
+const fb = [
+  ["WCO sources", ["CORE (ERP)", "USD (CRM)", "Inventory"], "systems of record", "tag"],
+  ["Governed access", ["Certified datasets,", "Power BI, or the", "enterprise API layer"], "read-only", "solid"],
+  ["OB_Datavers", ["Cross-reference engine", "Activity store, Azure SQL", "AI layer, Azure OpenAI"], "isolated, in-tenant", "tag"],
+  ["Dashboard, then the win", ["Embedded Power BI", "Seller signals surfaced", "Spec owned brands, win"], null, "win"],
+];
+const fbw = 2.7, fgap = (W - 2 * M - 4 * fbw) / 3, fy = 2.0, fh = 2.75;
+fb.forEach((b, i) => {
+  const x = M + i * (fbw + fgap);
+  const win = b[3] === "win";
+  card(s, x, fy, fbw, fh, win ? GREEN : CARD);
+  s.addText(b[0], { x: x + 0.22, y: fy + 0.18, w: fbw - 0.44, h: 0.5, fontFace: HEAD, bold: true, fontSize: 15, color: win ? "FFFFFF" : INK });
+  s.addText(b[1].map((ln) => ({ text: ln, options: { breakLine: true } })), { x: x + 0.22, y: fy + 0.78, w: fbw - 0.44, h: 1.2, fontFace: BODY, fontSize: 12, color: win ? "EAF4EE" : GREY, lineSpacingMultiple: 1.12 });
+  if (b[2]) {
+    const solid = b[3] === "solid";
+    s.addShape("roundRect", { x: x + 0.22, y: fy + fh - 0.52, w: fbw - 0.44, h: 0.34, rectRadius: 0.06, fill: { color: solid ? GREEN : MIST } });
+    s.addText(b[2], { x: x + 0.22, y: fy + fh - 0.52, w: fbw - 0.44, h: 0.34, align: "center", valign: "middle", fontFace: MONO, fontSize: 10, bold: solid, color: solid ? "FFFFFF" : GREEN });
+  }
+  if (i < 3) s.addText("→", { x: x + fbw, y: fy, w: fgap, h: fh, align: "center", valign: "middle", fontFace: MONO, bold: true, fontSize: 22, color: LIME });
+});
+s.addShape("roundRect", { x: M, y: 5.15, w: W - 2 * M, h: 0.5, rectRadius: 0.08, fill: { color: DEEP } });
+s.addText("Entra ID SSO   ·   RBAC + row-level security   ·   stays inside the Microsoft / Azure boundary, no egress", { x: M, y: 5.15, w: W - 2 * M, h: 0.5, align: "center", valign: "middle", fontFace: BODY, fontSize: 13, color: "FFFFFF" });
 s.addText([
-  { text: "No write / update / delete to CORE, USD, or any system of record", options: { bullet: { code: "2715" } } },
-  { text: "No direct production-database connectivity", options: { bullet: { code: "2715" } } },
-  { text: "No duplication or ownership of WCO data", options: { bullet: { code: "2715" } } },
-  { text: "No access outside the OB sales team", options: { bullet: { code: "2715" } } },
-  { text: "No data egress outside the Microsoft / Azure boundary", options: { bullet: { code: "2715" } } },
-], { x: M + 0.3, y: 3.05, w: colW - 0.6, h: 2.5, fontFace: BODY, fontSize: 14, color: INK, lineSpacingMultiple: 1.12, paraSpaceAfter: 6 });
-card(s, M + colW + 0.4, 2.35, colW, 3.4, MIST);
-s.addText("How it’s governed", { x: M + colW + 0.7, y: 2.55, w: colW - 0.6, h: 0.4, fontFace: HEAD, bold: true, fontSize: 16, color: GREEN });
-s.addText([
-  { text: "Azure-native: App Service / Functions + isolated Azure SQL", options: { bullet: { code: "2713" } } },
-  { text: "Entra ID SSO, application RBAC, territory row-level security", options: { bullet: { code: "2713" } } },
-  { text: "Embedded certified Power BI, no dataset duplication", options: { bullet: { code: "2713" } } },
-  { text: "Azure OpenAI in-tenant; margin/cost handled as Confidential", options: { bullet: { code: "2713" } } },
-], { x: M + colW + 0.7, y: 3.1, w: colW - 0.6, h: 2.4, fontFace: BODY, fontSize: 14, color: INK, lineSpacingMultiple: 1.15, paraSpaceAfter: 8 });
-s.addText("This complements Power BI and introduces no new system of record for WCO data.", {
-  x: M, y: 5.95, w: W - 2 * M, h: 0.4, fontFace: BODY, italic: true, fontSize: 15, color: GREEN });
+  { text: "Not doing: ", options: { bold: true, color: "A6322B" } },
+  { text: "no writes to CORE/USD, no direct DB connectivity, no duplication, no access outside OB, no egress.", options: { color: GREY } },
+], { x: M, y: 5.8, w: W - 2 * M, h: 0.35, align: "center", fontFace: BODY, fontSize: 13 });
+s.addText("Proposed and aligned to confirmed WCO Azure standards; the exact governed-data mechanism is confirmed with the Data Office before build.", { x: M, y: 6.28, w: W - 2 * M, h: 0.35, align: "center", fontFace: BODY, italic: true, fontSize: 11.5, color: GREEN });
 pageNum(s, 8);
 
 // =================== SLIDE 9 — PLAN ===================

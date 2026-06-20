@@ -30,6 +30,12 @@ All notable changes to this project are documented here. Format follows
   and product-development signals; removed all em-dashes; budget set to TBD.
 - Renamed anonymization aliases repo-wide: `OBCO` → `WCO`, `OB_Vend` → `LCO`,
   so the whole repo matches the pitch.
+- Fifth pitch pass: replaced the deck's risk slide with a data-flow + governance
+  slide (WCO sources → governed read-only access → OB_Datavers on Azure →
+  dashboard and the win), with an identity/boundary band and a "proposed, aligned
+  to confirmed standards, mechanism confirmed with the Data Office" footnote.
+  Names only the confirmed Microsoft/Azure components; keeps the undecided layer
+  abstract. Deck stays at 10 slides.
 - Fourth pitch pass: added the leadership-dashboard screenshot to the brief's
   one-pager; per review, dropped the ERP/CRM expansion, added "at the right time"
   to the value loop, reworded why-now ("see around corners that are blind today"),

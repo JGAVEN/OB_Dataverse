@@ -14,14 +14,15 @@ const RULE = "D9D9D9";
 const LIGHT = "EAF4EE";
 
 const CONTENT_W = 9360;
+const NOBORDER = { top: { style: BorderStyle.NONE }, bottom: { style: BorderStyle.NONE }, left: { style: BorderStyle.NONE }, right: { style: BorderStyle.NONE } };
 
 const bullet = (children, ref = "bul", level = 0) =>
-  new Paragraph({ numbering: { reference: ref, level }, spacing: { after: 18 }, children });
+  new Paragraph({ numbering: { reference: ref, level }, spacing: { after: 16 }, children });
 const t = (text, opts = {}) => new TextRun({ text, font: "Arial", ...opts });
 
 const kicker = (text) =>
   new Paragraph({
-    spacing: { before: 150, after: 40 },
+    spacing: { before: 140, after: 36 },
     children: [t(text.toUpperCase(), { bold: true, size: 17, color: GREEN, characterSpacing: 20 })],
   });
 
@@ -57,6 +58,35 @@ const twoColTable = (rows, w1, w2) =>
     ] })),
   });
 
+// loop graphic: 4 green step boxes with arrows between
+const loopGraphic = (steps) => {
+  const stepW = 2010, arrowW = 440;
+  const stepCell = (text) => new TableCell({
+    width: { size: stepW, type: WidthType.DXA }, borders: NOBORDER,
+    shading: { fill: GREEN, type: ShadingType.CLEAR },
+    margins: { top: 90, bottom: 90, left: 80, right: 80 },
+    verticalAlign: "center",
+    children: [new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 0 }, children: [t(text, { size: 16, bold: true, color: "FFFFFF" })] })],
+  });
+  const arrowCell = () => new TableCell({
+    width: { size: arrowW, type: WidthType.DXA }, borders: NOBORDER, verticalAlign: "center",
+    children: [new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 0 }, children: [t("→", { size: 22, bold: true, color: GREEN })] })],
+  });
+  const cells = [];
+  steps.forEach((s, i) => { cells.push(stepCell(s)); if (i < steps.length - 1) cells.push(arrowCell()); });
+  return new Table({ width: { size: CONTENT_W, type: WidthType.DXA },
+    columnWidths: [stepW, arrowW, stepW, arrowW, stepW, arrowW, stepW], rows: [new TableRow({ children: cells })] });
+};
+
+// callout box with a colored left border and a label
+const callout = (label, runs, fill = "F5F5F5", labelColor = GREEN) =>
+  new Paragraph({
+    spacing: { before: 60, after: 0 },
+    shading: { fill, type: ShadingType.CLEAR },
+    border: { left: { style: BorderStyle.SINGLE, size: 18, color: GREEN, space: 10 } },
+    children: [t(label + "   ", { bold: true, size: 16, color: labelColor, characterSpacing: 14 }), ...runs],
+  });
+
 // =================== PAGE 1 ===================
 const page1 = [
   new Paragraph({ spacing: { after: 0 }, children: [
@@ -69,7 +99,7 @@ const page1 = [
     t("Jeff Goodman   ·   Director, Sales, Owned Brands   ·   June 19, 2026   ·   Status: Discovery / prototype", { size: 16, color: GREY }),
   ] }),
 
-  new Paragraph({ spacing: { before: 40, after: 80 },
+  new Paragraph({ spacing: { before: 30, after: 70 },
     shading: { fill: LIGHT, type: ShadingType.CLEAR },
     border: { left: { style: BorderStyle.SINGLE, size: 18, color: GREEN, space: 8 } },
     children: [t("Give the Owned Brands team the signals to help WCO sellers win deals and hold margin.", { bold: true, size: 24, color: INK })] }),
@@ -77,36 +107,25 @@ const page1 = [
   kicker("Who we are, and what’s missing"),
   bullet([t("The Owned Brands (OB) sales team is WCO’s owned-brands ", { size: 18 }), t("vendor", { size: 18, italics: true }), t(" team. Our job is to call on WCO sellers and select WCO customers and help them win.", { size: 18 })]),
   bullet([t("Stronger signals would put us in the right place at the right time: which sellers are about to lose a deal they could win, and where competitive pressure or missing national-brand support is eroding margin.", { size: 18 })]),
-  bullet([t("WCO’s systems (CORE, USD) are built for the distributor, not the vendor lens. Tools built specifically for OB will lift win rate and margin organization-wide.", { size: 18 })]),
-
-  kicker("The solution"),
-  bullet([t("A read-only, vendor-side intelligence and activity platform inside WCO. It surfaces the signals and tracks our engagement, so we show up at the right time with the right pitch.", { size: 18 })]),
+  bullet([t("WCO’s systems (CORE, our ERP; USD, our CRM) are built for the distributor, not the vendor lens. Tools built specifically for OB will lift win rate and margin organization-wide.", { size: 18 })]),
 
   kicker("The value loop, our north star"),
-  new Paragraph({ spacing: { after: 80 }, alignment: AlignmentType.CENTER,
-    shading: { fill: "F5F5F5", type: ShadingType.CLEAR },
-    children: [
-      t("Surface the signal", { size: 18, bold: true }),
-      t("   →   ", { size: 18, color: GREEN, bold: true }),
-      t("reach the right WCO seller / customer", { size: 18, bold: true }),
-      t("   →   ", { size: 18, color: GREEN, bold: true }),
-      t("help win the deal & hold margin", { size: 18, bold: true }),
-      t("   →   ", { size: 18, color: GREEN, bold: true }),
-      t("growth", { size: 18, bold: true }),
-    ] }),
+  loopGraphic(["Surface the signal", "Reach the right WCO seller / customer", "Win the deal & hold margin", "Growth"]),
+  new Paragraph({ spacing: { before: 36, after: 0 }, children: [t("A read-only, vendor-side intelligence and activity platform inside WCO surfaces the signals and tracks our engagement, so we show up at the right time with the right pitch.", { size: 18 })] }),
 
-  kicker("What it does"),
-  bullet([t("Competitive product cross database: competitor part → owned-brand equivalent, living and searchable. Built for OB sales-team enablement, not org-wide access.", { size: 18 })]),
-  bullet([t("Signals that rank where to show up: deals at risk, margin under pressure, conversion openings.", { size: 18 })]),
-  bullet([t("Vendor-lens CRM: OB-generated opportunities, quotes, calls, visits, demos. The WCO seller is our customer, and engagement with a WCO seller isn’t tracked in USD.", { size: 18 })]),
-  bullet([t("AI email-drop (a note → structured records), datasheet cross-extraction, opportunity-loss tracking, product-development signals, and a natural-language leadership dashboard.", { size: 18 })]),
-  bullet([t("Inventory overlay with a pipeline-weighted demand forecast.", { size: 18 })]),
+  kicker("In practice"),
+  callout("THE DEAL", [
+    t("A WCO seller is bidding a security project (a national-brand camera line, with the rest of the bill of materials still open) and holds registered project pricing on the cameras. A competing distributor bids the same cameras but pairs them with its own-brand cable; the extra margin on that cable lets it beat our total price, registered pricing and all. ", { size: 17 }),
+    t("The platform flags this seller, and the OB team helps them specify Owned Brands into the bill of materials, lifting margin and sharpening total price so WCO keeps the deal.", { size: 17, bold: true, color: GREEN }),
+  ]),
 
-  kicker("Why this is a low-risk yes"),
-  bullet([t("Read-only toward CORE and USD: no writes, no data duplication, no egress.", { size: 18 })]),
-  bullet([t("Azure-native: Entra ID SSO, RBAC + row-level security, embedded certified Power BI, Azure OpenAI in-tenant.", { size: 18 })]),
+  kicker("Why now"),
+  callout("MOMENTUM", [
+    t("The Owned Brands team has just integrated the LCO sales organization, adding capability and aligning structure to its mandate inside WCO. The team is built to execute; the missing piece is the toolset that lets it act. Equip it now and that structural investment compounds; wait, and winnable deals like the one above keep slipping. ", { size: 17 }),
+    t("First-90-day target: identify and support 30 opportunities WCO would otherwise have lost.", { size: 17, bold: true, color: GREEN }),
+  ]),
 
-  new Paragraph({ spacing: { before: 130, after: 0 },
+  new Paragraph({ spacing: { before: 90, after: 0 },
     shading: { fill: GREEN, type: ShadingType.CLEAR },
     children: [
       t("THE ASK   ", { bold: true, size: 18, color: "FFFFFF" }),
@@ -142,7 +161,7 @@ const page2 = [
 
   h2("Capabilities"),
   twoColTable([
-    ["Competitive product cross database", "Competitor part → owned-brand mapping; living, searchable, AI-extracted from datasheets. For OB enablement, not org-wide access."],
+    ["Competitive product cross database", "Competitor part to owned-brand mapping; living, searchable, AI-extracted from datasheets. For OB enablement, not org-wide access."],
     ["Signals + supply", "Where to show up: deals at risk and margin under pressure; pipeline-weighted demand forecast surfaces a stock signal."],
     ["Vendor-lens CRM", "OB-generated opportunities, quotes, calls, visits, demos, hardware evals; tracks OB engagement with WCO sellers and customers (not captured in USD)."],
     ["AI layer", "Email-drop to structured records; opportunity-loss tracking; product-development signals; natural-language leadership dashboard; in-tenant only."],

@@ -30,3 +30,9 @@ All notable changes to this project are documented here. Format follows
   and product-development signals; removed all em-dashes; budget set to TBD.
 - Renamed anonymization aliases repo-wide: `OBCO` → `WCO`, `OB_Vend` → `LCO`,
   so the whole repo matches the pitch.
+- Third pitch pass: added a concrete worked example (a security-bid deal), a
+  "why now" beat (LCO integration momentum) with a first-90-day KPI of 30
+  saved opportunities, a value-loop graphic on the brief, and a prototype
+  screenshot slide in the deck (captured from the wireframe). Deck grew to 10
+  slides. Spelled out CORE/USD as ERP/CRM. Removed em-dashes from the wireframe
+  (`index.html`) too.

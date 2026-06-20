@@ -5,13 +5,11 @@ const p = new pptxgen();
 p.defineLayout({ name: "W", width: 13.333, height: 7.5 });
 p.layout = "W";
 const W = 13.333, H = 7.5, M = 0.6;
+const TOTAL = 10;
 
-// ---- palette (margin-green, content-informed) ----
 const INK = "14241C", DEEP = "10402A", GREEN = "1B7F4B", LIME = "37B26B";
 const PAPER = "FFFFFF", MIST = "EAF4EE", GREY = "586160", LINE = "DCE5DF", CARD = "F4F8F5";
 const HEAD = "Trebuchet MS", BODY = "Calibri", MONO = "Consolas";
-
-const titleOpts = { fontFace: HEAD, bold: true, color: INK, align: "left" };
 
 function kicker(s, text, color) {
   s.addText(text.toUpperCase(), { x: M, y: 0.45, w: W - 2 * M, h: 0.3,
@@ -23,11 +21,9 @@ function actionTitle(s, text, color) {
 }
 function pageNum(s, n) {
   s.addText([{ text: "Owned Brands Sales Intelligence Platform", options: { color: GREY } },
-             { text: "   ·   Confidential / Internal   ·   " + n + " / 8", options: { color: GREY } }],
+             { text: "   ·   Confidential / Internal   ·   " + n + " / " + TOTAL, options: { color: GREY } }],
     { x: M, y: H - 0.42, w: W - 2 * M, h: 0.3, fontFace: BODY, fontSize: 9, align: "left" });
 }
-
-// circle "icon" badge with a glyph
 function badge(s, x, y, glyph, fill) {
   s.addShape("ellipse", { x, y, w: 0.6, h: 0.6, fill: { color: fill || GREEN } });
   s.addText(glyph, { x, y, w: 0.6, h: 0.6, align: "center", valign: "middle",
@@ -38,7 +34,7 @@ function card(s, x, y, w, h, fill) {
     line: { color: LINE, width: 1 } });
 }
 
-// =================== SLIDE 1 — TITLE (dark) ===================
+// =================== SLIDE 1 — TITLE ===================
 let s = p.addSlide();
 s.background = { color: DEEP };
 s.addText("WCO  ·  OWNED BRANDS  ·  DATAVERS BRIEF", { x: M, y: 0.7, w: W - 2 * M, h: 0.35,
@@ -48,7 +44,6 @@ s.addText("The signals to help WCO sellers win deals\nand hold owned-brand margi
   lineSpacingMultiple: 1.04, align: "left" });
 s.addText("A read-only, vendor-side intelligence and activity platform inside WCO. It surfaces the signals and tracks our engagement, so the Owned Brands team shows up at the right time with the right pitch.", {
   x: M, y: 4.3, w: 11.0, h: 1.0, fontFace: BODY, fontSize: 17, color: "D6E8DD", align: "left" });
-// the loop motif
 s.addShape("roundRect", { x: M, y: 5.5, w: W - 2 * M, h: 0.78, rectRadius: 0.1,
   fill: { color: "0B3020" }, line: { color: GREEN, width: 1 } });
 s.addText([
@@ -63,14 +58,14 @@ s.addText([
 s.addText("Jeff Goodman   ·   Director, Sales, Owned Brands   ·   June 19, 2026   ·   Status: Discovery / prototype", {
   x: M, y: 6.7, w: W - 2 * M, h: 0.3, fontFace: BODY, fontSize: 11, color: "9DB6A8" });
 
-// =================== SLIDE 2 — OPPORTUNITY ===================
+// =================== SLIDE 2 — WHAT'S MISSING ===================
 s = p.addSlide(); s.background = { color: PAPER };
 kicker(s, "Who we are, and what’s missing");
 actionTitle(s, "We can’t see the signals that win deals and hold margin");
 const opp = [
   ["◉", "We’re the vendor team", "The Owned Brands team is WCO’s owned-brands vendor team. Our job is to call on WCO sellers and select customers and help them win."],
   ["⚑", "We fly blind", "We don’t see which sellers are about to lose a winnable deal, or where competitive pressure is eroding owned-brand margin."],
-  ["▤", "We have no tools of our own", "WCO’s distributor systems weren’t built for the vendor lens. OB-specific tools would lift win rate and margin organization-wide."],
+  ["▤", "We have no tools of our own", "WCO’s systems (CORE, our ERP; USD, our CRM) weren’t built for the vendor lens. OB-specific tools would lift win rate and margin org-wide."],
 ];
 opp.forEach((c, i) => {
   const x = M + i * ((W - 2 * M - 0.6) / 3 + 0.3);
@@ -84,29 +79,25 @@ s.addText("The platform’s job: surface those signals and put us in the right p
   x: M, y: 6.0, w: W - 2 * M, h: 0.4, fontFace: BODY, italic: true, fontSize: 15, color: GREEN });
 pageNum(s, 2);
 
-// =================== SLIDE 3 — PROBLEM ===================
+// =================== SLIDE 3 — EXAMPLE ===================
 s = p.addSlide(); s.background = { color: PAPER };
-kicker(s, "The problem");
-actionTitle(s, "Our own systems are blind to the vendor lens");
-const colW = (W - 2 * M - 0.4) / 2;
-card(s, M, 2.35, colW, 3.0, CARD);
-card(s, M + colW + 0.4, 2.35, colW, 3.0, MIST);
-s.addText("Distributor lens: CORE & USD", { x: M + 0.3, y: 2.55, w: colW - 0.6, h: 0.4, fontFace: HEAD, bold: true, fontSize: 16, color: GREY });
-s.addText([
-  { text: "Built for the distributor operating model", options: { bullet: { code: "2022" } } },
-  { text: "Order, invoice, and channel transactions", options: { bullet: { code: "2022" } } },
-  { text: "No view of brand sell-through or competitive conversion", options: { bullet: { code: "2022" } } },
-  { text: "No vendor-side activity tracking", options: { bullet: { code: "2022" } } },
-], { x: M + 0.3, y: 3.05, w: colW - 0.6, h: 2.1, fontFace: BODY, fontSize: 14, color: INK, lineSpacingMultiple: 1.15, paraSpaceAfter: 6 });
-s.addText("Vendor lens: what Owned Brands needs", { x: M + colW + 0.7, y: 2.55, w: colW - 0.6, h: 0.4, fontFace: HEAD, bold: true, fontSize: 16, color: GREEN });
-s.addText([
-  { text: "Competitor sell-through, brand by brand", options: { bullet: { code: "2022" } } },
-  { text: "Margin performance on every line", options: { bullet: { code: "2022" } } },
-  { text: "SKU cross-reference to owned-brand equivalents", options: { bullet: { code: "2022" } } },
-  { text: "Engagement with WCO sellers (our customer; not in USD)", options: { bullet: { code: "2022" } } },
-], { x: M + colW + 0.7, y: 3.05, w: colW - 0.6, h: 2.1, fontFace: BODY, fontSize: 14, color: INK, lineSpacingMultiple: 1.15, paraSpaceAfter: 6 });
-s.addText("Without the vendor lens, the signal lives in disconnected spreadsheets, invisible to leadership and impossible to scale.", {
-  x: M, y: 5.65, w: W - 2 * M, h: 0.6, fontFace: BODY, italic: true, fontSize: 15, color: GREEN });
+kicker(s, "In practice");
+actionTitle(s, "A deal we’d lose today, and how we win it");
+const story = [
+  ["The deal", "A WCO seller is bidding a security project: a national-brand camera line, with the rest of the bill of materials still open. The seller sourced it and holds registered project pricing on the cameras.", false],
+  ["The threat", "A competing distributor bids the same cameras, but pairs them with its own-brand cable. The extra margin on that cable lets it beat our total price, registered pricing and all.", false],
+  ["How we win", "The platform flags this seller. The OB team helps specify Owned Brands into the bill of materials, lifting margin and sharpening total price, so WCO keeps the deal.", true],
+];
+const stW = (W - 2 * M - 2 * 0.55) / 3;
+story.forEach((c, i) => {
+  const x = M + i * (stW + 0.55);
+  card(s, x, 2.45, stW, 3.5, c[2] ? GREEN : CARD);
+  s.addText(c[0], { x: x + 0.3, y: 2.7, w: stW - 0.6, h: 0.45, fontFace: HEAD, bold: true, fontSize: 17, color: c[2] ? "FFFFFF" : GREEN });
+  s.addText(c[1], { x: x + 0.3, y: 3.25, w: stW - 0.6, h: 2.5, fontFace: BODY, fontSize: 14.5, color: c[2] ? "EAF4EE" : INK, lineSpacingMultiple: 1.12 });
+  if (i < 2) s.addText("→", { x: x + stW, y: 2.45, w: 0.55, h: 3.5, align: "center", valign: "middle", fontFace: MONO, bold: true, fontSize: 26, color: LIME });
+});
+s.addText("Today no system surfaces this seller in time. That is the gap, and the whole point of the platform.", {
+  x: M, y: 6.25, w: W - 2 * M, h: 0.4, fontFace: BODY, italic: true, fontSize: 15, color: GREEN });
 pageNum(s, 3);
 
 // =================== SLIDE 4 — THE ENGINE / LOOP ===================
@@ -139,10 +130,10 @@ s = p.addSlide(); s.background = { color: PAPER };
 kicker(s, "What you get");
 actionTitle(s, "A vendor-side platform and CRM, already prototyped");
 const caps = [
-  ["⇄", "Cross database", "Competitive product → owned-brand mapping. OB enablement, not org-wide access."],
+  ["⇄", "Cross database", "Competitive product to owned-brand mapping. OB enablement, not org-wide access."],
   ["◎", "Signals + supply", "Where to show up: deals at risk, margin under pressure, stock signal."],
   ["☷", "Vendor-lens CRM", "OB-generated opportunities; engagement with WCO sellers, our customer (not in USD)."],
-  ["✉", "AI email-drop", "A note → records; opportunity-loss and product-development signals."],
+  ["✉", "AI email-drop", "A note to records; opportunity-loss and product-development signals."],
   ["▣", "Leadership dashboard", "Natural-language query over the whole pipeline."],
   ["▤", "Inventory & forecast", "Stock overlay with pipeline-weighted demand."],
 ];
@@ -155,14 +146,58 @@ caps.forEach((c, i) => {
   s.addText(c[1], { x: x + 1.0, y: y + 0.22, w: gw - 1.15, h: 0.4, fontFace: HEAD, bold: true, fontSize: 15, color: INK });
   s.addText(c[2], { x: x + 1.0, y: y + 0.62, w: gw - 1.15, h: 0.8, fontFace: BODY, fontSize: 12.5, color: GREY, lineSpacingMultiple: 1.03 });
 });
-s.addText("A working two-persona prototype (Leadership + Sales Team) already exists: proven UX, not a concept.", {
+s.addText("Built read-only and in-tenant. Margin/cost confined to the authorized OB group.", {
   x: M, y: 6.25, w: W - 2 * M, h: 0.4, fontFace: BODY, italic: true, fontSize: 14, color: GREEN });
 pageNum(s, 5);
 
-// =================== SLIDE 6 — RISK HANDLED ===================
+// =================== SLIDE 6 — PROTOTYPE ===================
+s = p.addSlide(); s.background = { color: PAPER };
+kicker(s, "Proof");
+actionTitle(s, "Already built: the leadership view");
+const imgX = M, imgY = 1.65, imgW = 6.95, imgH = 6.95 / 1.44;
+s.addShape("roundRect", { x: imgX - 0.07, y: imgY - 0.07, w: imgW + 0.14, h: imgH + 0.14, rectRadius: 0.04, fill: { color: MIST }, line: { color: LINE, width: 1 } });
+s.addImage({ path: path.join(__dirname, "prototype_shot.png"), x: imgX, y: imgY, w: imgW, h: imgH });
+const notes = [
+  ["Conversion value loop", "Identified → crossed → in progress → converted, tracked live."],
+  ["Pipeline by owned brand", "LCO AV, LCO Cable and more, ranked by open opportunity."],
+  ["Engagement by party", "Calls, visits, demos logged for the WCO seller and customer."],
+];
+const nx = imgX + imgW + 0.45, nw = W - M - nx;
+notes.forEach((n, i) => {
+  const y = imgY + 0.1 + i * 1.35;
+  badge(s, nx, y, String(i + 1));
+  s.addText(n[0], { x: nx + 0.78, y: y - 0.02, w: nw - 0.78, h: 0.4, fontFace: HEAD, bold: true, fontSize: 15, color: INK });
+  s.addText(n[1], { x: nx + 0.78, y: y + 0.38, w: nw - 0.78, h: 0.8, fontFace: BODY, fontSize: 13, color: GREY, lineSpacingMultiple: 1.05 });
+});
+s.addText("Working two-persona wireframe (Leadership + Sales Team); sample data only. This is proven UX, not a concept.", {
+  x: M, y: 6.62, w: W - 2 * M, h: 0.35, fontFace: BODY, italic: true, fontSize: 13, color: GREEN });
+pageNum(s, 6);
+
+// =================== SLIDE 7 — WHY NOW + KPI ===================
+s = p.addSlide(); s.background = { color: PAPER };
+kicker(s, "Why now");
+actionTitle(s, "The team is built to execute. The tool is the missing piece.");
+const leftW = 7.0;
+s.addText([
+  { text: "We just integrated the LCO sales organization", options: { bold: true, color: INK } },
+  { text: ", adding capability and aligning structure to the Owned Brands mandate inside WCO. The structure is in place; the tooling isn’t.", options: { color: INK } },
+], { x: M, y: 2.5, w: leftW, h: 1.2, fontFace: BODY, fontSize: 17, lineSpacingMultiple: 1.15 });
+s.addText("Equip the team now and that structural investment compounds. Wait, and winnable deals like the one we just walked through keep slipping, quietly.", {
+  x: M, y: 3.95, w: leftW, h: 1.4, fontFace: BODY, fontSize: 17, color: GREY, lineSpacingMultiple: 1.15 });
+// KPI stat card
+const kx = M + leftW + 0.6, kw = W - M - kx;
+s.addShape("roundRect", { x: kx, y: 2.4, w: kw, h: 3.3, rectRadius: 0.1, fill: { color: DEEP } });
+s.addText("FIRST 90 DAYS", { x: kx, y: 2.75, w: kw, h: 0.35, align: "center", fontFace: MONO, fontSize: 12, color: LIME, charSpacing: 2 });
+s.addText("30", { x: kx, y: 3.0, w: kw, h: 1.6, align: "center", fontFace: HEAD, bold: true, fontSize: 96, color: "FFFFFF" });
+s.addText("opportunities WCO would otherwise have lost, identified and supported.", {
+  x: kx + 0.4, y: 4.7, w: kw - 0.8, h: 0.9, align: "center", fontFace: BODY, fontSize: 15, color: "D6E8DD", lineSpacingMultiple: 1.05 });
+pageNum(s, 7);
+
+// =================== SLIDE 8 — RISK HANDLED ===================
 s = p.addSlide(); s.background = { color: PAPER };
 kicker(s, "Risk & governance");
 actionTitle(s, "Read-only and in-tenant: zero risk to CORE or USD");
+const colW = (W - 2 * M - 0.4) / 2;
 card(s, M, 2.35, colW, 3.4, "FBECEC");
 s.addText("What we will NOT do", { x: M + 0.3, y: 2.55, w: colW - 0.6, h: 0.4, fontFace: HEAD, bold: true, fontSize: 16, color: "A6322B" });
 s.addText([
@@ -182,9 +217,9 @@ s.addText([
 ], { x: M + colW + 0.7, y: 3.1, w: colW - 0.6, h: 2.4, fontFace: BODY, fontSize: 14, color: INK, lineSpacingMultiple: 1.15, paraSpaceAfter: 8 });
 s.addText("This complements Power BI and introduces no new system of record for WCO data.", {
   x: M, y: 5.95, w: W - 2 * M, h: 0.4, fontFace: BODY, italic: true, fontSize: 15, color: GREEN });
-pageNum(s, 6);
+pageNum(s, 8);
 
-// =================== SLIDE 7 — PLAN ===================
+// =================== SLIDE 9 — PLAN ===================
 s = p.addSlide(); s.background = { color: PAPER };
 kicker(s, "The plan");
 actionTitle(s, "A phased build I can execute solo");
@@ -196,7 +231,6 @@ const ph = [
   ["4", "Rollout", "Team adoption, education & sales-plan outputs"],
 ];
 const pw = (W - 2 * M - 4 * 0.4) / 5;
-// connecting baseline
 s.addShape("line", { x: M + pw / 2, y: 3.3, w: (W - 2 * M) - pw, h: 0, line: { color: LINE, width: 2 } });
 ph.forEach((q, i) => {
   const x = M + i * (pw + 0.4);
@@ -206,9 +240,9 @@ ph.forEach((q, i) => {
 });
 s.addText("Phased by design: each phase is independently valuable and lowers the risk of the next.", {
   x: M, y: 6.05, w: W - 2 * M, h: 0.4, fontFace: BODY, italic: true, fontSize: 15, color: GREEN });
-pageNum(s, 7);
+pageNum(s, 9);
 
-// =================== SLIDE 8 — THE ASK (dark, decision) ===================
+// =================== SLIDE 10 — THE ASK ===================
 s = p.addSlide(); s.background = { color: DEEP };
 s.addText("THE ASK", { x: M, y: 0.55, w: W - 2 * M, h: 0.35, fontFace: MONO, fontSize: 13, color: LIME, charSpacing: 3 });
 s.addText("Approve read-only access, an Azure environment, and governance liaisons", {

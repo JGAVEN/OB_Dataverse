@@ -42,7 +42,7 @@ s.addText("WCO  ·  OWNED BRANDS  ·  DATAVERS BRIEF", { x: M, y: 0.7, w: W - 2 
 s.addText("The signals to help WCO sellers win deals\nand hold owned-brand margin.", {
   x: M, y: 1.9, w: W - 2 * M, h: 2.4, fontFace: HEAD, bold: true, fontSize: 40, color: "FFFFFF",
   lineSpacingMultiple: 1.04, align: "left" });
-s.addText("A read-only, vendor-side intelligence and activity platform inside WCO. It surfaces the signals and tracks our engagement, so the Owned Brands team shows up at the right time with the right pitch.", {
+s.addText("A read-only, vendor-side intelligence and activity platform inside WCO. It surfaces the signals and tracks our engagement, so the Owned Brands team engages the right opportunity at the right time.", {
   x: M, y: 4.3, w: 11.0, h: 1.0, fontFace: BODY, fontSize: 17, color: "D6E8DD", align: "left" });
 s.addShape("roundRect", { x: M, y: 5.5, w: W - 2 * M, h: 0.78, rectRadius: 0.1,
   fill: { color: "0B3020" }, line: { color: GREEN, width: 1 } });
@@ -60,12 +60,12 @@ s.addText("Jeff Goodman   ·   Director, Sales, Owned Brands   ·   June 19, 202
 
 // =================== SLIDE 2 — WHAT'S MISSING ===================
 s = p.addSlide(); s.background = { color: PAPER };
-kicker(s, "Who we are, and what’s missing");
-actionTitle(s, "We can’t see the signals that win deals and hold margin");
+kicker(s, "Who we are, and what is missing");
+actionTitle(s, "We lack the signals that win deals and protect margin");
 const opp = [
-  ["◉", "We’re the vendor team", "WCO is our primary customer. The Owned Brands team calls on WCO sellers and select customers to help them win with owned brands."],
-  ["⚑", "We fly blind", "We don’t see which sellers are about to lose a winnable deal, or where competitive pressure is eroding owned-brand margin."],
-  ["▤", "We have no tools of our own", "WCO’s systems (CORE, USD) weren’t built for the vendor lens. OB-specific tools would lift win rate and margin org-wide."],
+  ["◉", "We are the vendor team", "WCO is our primary customer. The Owned Brands team calls on WCO sellers and select customers to help them win with owned brands."],
+  ["⚑", "We have no early warning", "We cannot see which sellers are about to lose a winnable deal, or where competitive pressure is eroding owned-brand margin."],
+  ["▤", "We have no purpose-built tools", "WCO’s ERP and CRM were not built for the vendor lens. Tools designed for it would lift win rate and margin organization-wide."],
 ];
 opp.forEach((c, i) => {
   const x = M + i * ((W - 2 * M - 0.6) / 3 + 0.3);
@@ -75,14 +75,14 @@ opp.forEach((c, i) => {
   s.addText(c[1], { x: x + 0.3, y: 3.45, w: w - 0.6, h: 0.7, fontFace: HEAD, bold: true, fontSize: 16, color: INK });
   s.addText(c[2], { x: x + 0.3, y: 4.2, w: w - 0.6, h: 1.4, fontFace: BODY, fontSize: 14, color: GREY, lineSpacingMultiple: 1.05 });
 });
-s.addText("The platform’s job: surface those signals and put us in the right place at the right time.", {
+s.addText("The platform’s role: surface those signals and position the Owned Brands team where it can change the outcome.", {
   x: M, y: 6.0, w: W - 2 * M, h: 0.4, fontFace: BODY, italic: true, fontSize: 15, color: GREEN });
 pageNum(s, 2);
 
 // =================== SLIDE 3 — EXAMPLE ===================
 s = p.addSlide(); s.background = { color: PAPER };
 kicker(s, "In practice");
-actionTitle(s, "A deal we’d lose today, and how we win it");
+actionTitle(s, "A deal we would lose today, and how the platform wins it");
 const story = [
   ["The deal", "A WCO seller is bidding a security project: a national-brand camera line, with the rest of the bill of materials still open. The seller sourced it and holds registered project pricing on the cameras.", false],
   ["The threat", "A competing distributor bids the same cameras, but pairs them with its own-brand cable. The extra margin on that cable lets it beat our total price, registered pricing and all.", false],
@@ -96,19 +96,19 @@ story.forEach((c, i) => {
   s.addText(c[1], { x: x + 0.3, y: 3.25, w: stW - 0.6, h: 2.5, fontFace: BODY, fontSize: 14.5, color: c[2] ? "EAF4EE" : INK, lineSpacingMultiple: 1.12 });
   if (i < 2) s.addText("→", { x: x + stW, y: 2.45, w: 0.55, h: 3.5, align: "center", valign: "middle", fontFace: MONO, bold: true, fontSize: 26, color: LIME });
 });
-s.addText("Today no system surfaces this seller in time. That is the gap, and the whole point of the platform.", {
+s.addText("Today no system surfaces this seller in time. Closing that gap is the platform’s core purpose.", {
   x: M, y: 6.25, w: W - 2 * M, h: 0.4, fontFace: BODY, italic: true, fontSize: 15, color: GREEN });
 pageNum(s, 3);
 
 // =================== SLIDE 4 — THE ENGINE / LOOP ===================
 s = p.addSlide(); s.background = { color: PAPER };
 kicker(s, "The engine, our north star");
-actionTitle(s, "One loop puts us in the right deal at the right time");
+actionTitle(s, "One loop moves a signal to a closed, higher-margin deal");
 const steps = [
-  ["1", "Surface", "Signal in the governed data: a deal at risk or margin under pressure"],
+  ["1", "Surface", "A signal in the governed data: a deal at risk or margin under pressure"],
   ["2", "Reach", "The right WCO seller or customer, at the right time, with the cross and context"],
-  ["3", "Win", "Help close the deal and hold owned-brand margin"],
-  ["4", "Grow", "Owned brands grow; the engagement is tracked"],
+  ["3", "Win", "Help close the deal and protect owned-brand margin"],
+  ["4", "Grow", "Owned-brand share grows; the engagement is captured"],
 ];
 const sw = (W - 2 * M - 3 * 0.55) / 4;
 steps.forEach((st, i) => {
@@ -131,9 +131,9 @@ kicker(s, "What you get");
 actionTitle(s, "A vendor-side platform and CRM, already prototyped");
 const caps = [
   ["⇄", "Cross database", "Competitive product to owned-brand mapping. OB enablement, not org-wide access."],
-  ["◎", "Signals + supply", "Where to show up: deals at risk, margin under pressure, stock signal."],
-  ["☷", "Vendor-lens CRM", "OB-generated opportunities; engagement with WCO sellers, our customer (not in USD)."],
-  ["✉", "AI email-drop", "A note to records; opportunity-loss and product-development signals."],
+  ["◎", "Signals + supply", "Where to engage: deals at risk, margin under pressure, and the supporting stock signal."],
+  ["☷", "Vendor-lens CRM", "OB-generated opportunities; engagement with WCO sellers, our customer (not in the CRM)."],
+  ["✉", "AI email-drop", "A note becomes structured records; opportunity-loss and product signals."],
   ["▣", "Leadership dashboard", "Natural-language query over the whole pipeline."],
   ["▤", "Inventory & forecast", "Stock overlay with pipeline-weighted demand."],
 ];
@@ -153,7 +153,7 @@ pageNum(s, 5);
 // =================== SLIDE 6 — PROTOTYPE ===================
 s = p.addSlide(); s.background = { color: PAPER };
 kicker(s, "Proof");
-actionTitle(s, "Already built: the leadership view");
+actionTitle(s, "Already prototyped: the leadership view");
 const imgX = M, imgY = 1.65, imgW = 6.95, imgH = 6.95 / 1.44;
 s.addShape("roundRect", { x: imgX - 0.07, y: imgY - 0.07, w: imgW + 0.14, h: imgH + 0.14, rectRadius: 0.04, fill: { color: MIST }, line: { color: LINE, width: 1 } });
 s.addImage({ path: path.join(__dirname, "prototype_shot.png"), x: imgX, y: imgY, w: imgW, h: imgH });
@@ -179,10 +179,10 @@ kicker(s, "Why now");
 actionTitle(s, "The team is built to execute. The tool is the missing piece.");
 const leftW = 7.0;
 s.addText([
-  { text: "We just integrated the LCO sales organization", options: { bold: true, color: INK } },
-  { text: ", adding capability and aligning structure to the Owned Brands mandate inside WCO. The structure is in place; the missing piece is the toolset that lets it see around corners that are blind today.", options: { color: INK } },
+  { text: "We have integrated the LCO sales organization", options: { bold: true, color: INK } },
+  { text: ", adding capability and aligning structure to the Owned Brands mandate inside WCO. The structure is in place; the missing piece is the toolset that gives it the visibility it does not have today.", options: { color: INK } },
 ], { x: M, y: 2.5, w: leftW, h: 1.2, fontFace: BODY, fontSize: 17, lineSpacingMultiple: 1.15 });
-s.addText("Equip the team now and that structural investment compounds. Wait, and winnable deals like the one we just walked through keep slipping, quietly.", {
+s.addText("Equipping the team now compounds that structural investment. Without it, winnable deals like the one above continue to slip away unseen.", {
   x: M, y: 3.95, w: leftW, h: 1.4, fontFace: BODY, fontSize: 17, color: GREY, lineSpacingMultiple: 1.15 });
 // KPI stat card
 const kx = M + leftW + 0.6, kw = W - M - kx;
@@ -196,9 +196,9 @@ pageNum(s, 7);
 // =================== SLIDE 8 — DATA FLOW + GOVERNANCE ===================
 s = p.addSlide(); s.background = { color: PAPER };
 kicker(s, "Architecture & governance");
-actionTitle(s, "Read-only in, governed all the way through, the win out");
+actionTitle(s, "Governed end to end: read-only data in, the win out");
 const fb = [
-  ["WCO sources", ["CORE (ERP)", "USD (CRM)", "Inventory"], "systems of record", "tag"],
+  ["WCO sources", ["ERP (CORE)", "CRM (USD)", "Inventory"], "systems of record", "tag"],
   ["Governed access", ["Certified datasets,", "Power BI, or the", "enterprise API layer"], "read-only", "solid"],
   ["OB_Datavers", ["Cross-reference engine", "Activity store, Azure SQL", "AI layer, Azure OpenAI"], "isolated, in-tenant", "tag"],
   ["Dashboard, then the win", ["Embedded Power BI", "Seller signals surfaced", "Spec owned brands, win"], null, "win"],
@@ -221,7 +221,7 @@ s.addShape("roundRect", { x: M, y: 5.15, w: W - 2 * M, h: 0.5, rectRadius: 0.08,
 s.addText("Entra ID SSO   ·   RBAC + row-level security   ·   stays inside the Microsoft / Azure boundary, no egress", { x: M, y: 5.15, w: W - 2 * M, h: 0.5, align: "center", valign: "middle", fontFace: BODY, fontSize: 13, color: "FFFFFF" });
 s.addText([
   { text: "Not doing: ", options: { bold: true, color: "A6322B" } },
-  { text: "no writes to CORE/USD, no direct DB connectivity, no duplication, no access outside OB, no egress.", options: { color: GREY } },
+  { text: "no writes to the ERP or CRM, no direct DB connectivity, no duplication, no access outside OB, no egress.", options: { color: GREY } },
 ], { x: M, y: 5.8, w: W - 2 * M, h: 0.35, align: "center", fontFace: BODY, fontSize: 13 });
 s.addText("Proposed and aligned to confirmed WCO Azure standards; the exact governed-data mechanism is confirmed with the Data Office before build.", { x: M, y: 6.28, w: W - 2 * M, h: 0.35, align: "center", fontFace: BODY, italic: true, fontSize: 11.5, color: GREEN });
 pageNum(s, 8);
@@ -268,9 +268,9 @@ asks.forEach((a, i) => {
 });
 s.addText([
   { text: "Not requested: ", options: { bold: true, color: LIME } },
-  { text: "writes to CORE/USD, direct DB connectivity, data duplication, access outside OB, or any egress.", options: { color: "B9D2C5" } },
+  { text: "writes to the ERP or CRM, direct DB connectivity, data duplication, access outside OB, or any egress.", options: { color: "B9D2C5" } },
 ], { x: M, y: 6.15, w: W - 2 * M, h: 0.4, fontFace: BODY, fontSize: 13 });
-s.addText("Approve these and the Owned Brands team can finally see the signals and act on them.", {
+s.addText("Approve these, and the Owned Brands team can see the signals and act on them.", {
   x: M, y: 6.6, w: W - 2 * M, h: 0.5, fontFace: HEAD, bold: true, italic: true, fontSize: 15, color: "FFFFFF" });
 
 const out = path.join(__dirname, "Owned_Brands_Board_Deck.pptx");

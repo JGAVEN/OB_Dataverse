@@ -30,6 +30,10 @@ All notable changes to this project are documented here. Format follows
   and product-development signals; removed all em-dashes; budget set to TBD.
 - Renamed anonymization aliases repo-wide: `OBCO` → `WCO`, `OB_Vend` → `LCO`,
   so the whole repo matches the pitch.
+- Seventh pitch pass: elevated the deck's tone to match the formalized brief —
+  removed casual idioms ("fly blind", "see around corners") and conversational
+  asides ("the one we just walked through", "finally", "quietly"); made titles and
+  taglines declarative; standardized system naming to ERP/CRM throughout.
 - Sixth pitch pass: updated the dashboard's blended-margin metric (39.4%, up from
   38.2%); tightened and formalized the brief's two opening narrative paragraphs;
   reframed the vendor blind spot ("the distributor is our primary customer; we

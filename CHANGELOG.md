@@ -30,6 +30,13 @@ All notable changes to this project are documented here. Format follows
   and product-development signals; removed all em-dashes; budget set to TBD.
 - Renamed anonymization aliases repo-wide: `OBCO` → `WCO`, `OB_Vend` → `LCO`,
   so the whole repo matches the pitch.
+- Eighth pitch pass (deck): merged in-slide edits from the reviewed .pptx; flipped
+  slide 2 fully to upside framing ("Insights surfaced at the right time increase
+  margin company-wide"); replaced the "30 in 90 days" KPI with a growth-cycle
+  visual while keeping the why-now beat; scrubbed all "prototype/proven UX" claims
+  in favour of honest "wireframe" language; tightened the slide-3 worked example
+  (own-brand cable/power/racking; "despite our registered pricing"); bottom-
+  anchored slide-2 card headers for uniform body alignment.
 - Seventh pitch pass: elevated the deck's tone to match the formalized brief —
   removed casual idioms ("fly blind", "see around corners") and conversational
   asides ("the one we just walked through", "finally", "quietly"); made titles and

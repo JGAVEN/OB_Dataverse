@@ -1,0 +1,987 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Owned Brands — Sales Intelligence (Wireframe)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16212E; --ink-2:#1E2C3C; --ink-3:#27384B;
+    --canvas:#F5F6F8; --surface:#FFFFFF; --surface-2:#FBFCFD;
+    --line:#E4E8ED; --line-2:#EEF1F4;
+    --text:#19222E; --muted:#6C7888; --muted-2:#97A1AE;
+    --copper:#2F9E5E; --copper-d:#237A47; --copper-soft:#E5F3EB;
+    --gain:#176B45; --gain-soft:#E0EEE7;
+    --alert:#C13B2A; --alert-soft:#F7E5E1;
+    --seller:#34679C; --seller-soft:#E6EEF5;
+    --customer:#2F9E5E; --customer-soft:#E5F3EB;
+    --r:10px; --r-sm:7px;
+    --display:'Space Grotesk',system-ui,sans-serif;
+    --body:'Inter',system-ui,sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,monospace;
+    --shadow:0 1px 2px rgba(20,33,46,.04),0 4px 14px rgba(20,33,46,.05);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{font-family:var(--body);background:var(--canvas);color:var(--text);
+    font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased}
+  button{font-family:inherit;cursor:pointer}
+  .mono{font-family:var(--mono)}
+
+  /* ---------- top bar ---------- */
+  .topbar{height:58px;background:var(--ink);color:#fff;display:flex;align-items:center;
+    gap:18px;padding:0 18px;position:sticky;top:0;z-index:30}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:600;
+    letter-spacing:.2px;white-space:nowrap}
+  .brand .glyph{width:26px;height:26px;border-radius:6px;background:linear-gradient(135deg,var(--copper),var(--copper-d));
+    display:grid;place-items:center;font-family:var(--mono);font-weight:600;color:#fff;font-size:13px}
+  .brand small{display:block;font-family:var(--body);font-weight:400;color:#9DB0C2;font-size:10.5px;
+    letter-spacing:.4px;text-transform:uppercase;margin-top:1px}
+
+  .persona{display:flex;background:var(--ink-2);border-radius:8px;padding:3px;margin-left:6px}
+  .persona button{border:0;background:transparent;color:#A9B7C6;font-size:12.5px;font-weight:500;
+    padding:6px 14px;border-radius:6px;transition:.15s}
+  .persona button.on{background:var(--copper);color:#fff}
+
+  .ask{flex:1;max-width:520px;margin-left:8px;position:relative}
+  .ask input{width:100%;height:36px;border:0;border-radius:8px;background:var(--ink-2);
+    color:#fff;padding:0 14px 0 36px;font-size:13px;font-family:var(--body)}
+  .ask input::placeholder{color:#7E8DA0}
+  .ask .ico{position:absolute;left:12px;top:9px;color:#7E8DA0;font-size:14px}
+  .ask .tag{position:absolute;right:8px;top:7px;font-size:10px;letter-spacing:.4px;color:#8FA0B2;
+    background:var(--ink-3);padding:3px 7px;border-radius:5px;text-transform:uppercase}
+  .who{margin-left:auto;display:flex;align-items:center;gap:9px;white-space:nowrap}
+  .who .av{width:30px;height:30px;border-radius:50%;background:var(--ink-3);display:grid;place-items:center;
+    font-size:12px;font-weight:600;color:#fff}
+  .who .meta{font-size:12px;line-height:1.25}
+  .who .meta b{font-weight:600}
+  .who .meta span{color:#9DB0C2;display:block;font-size:10.5px}
+
+  /* ---------- shell ---------- */
+  .shell{display:flex;min-height:calc(100vh - 58px)}
+  .side{width:212px;background:var(--surface);border-right:1px solid var(--line);
+    padding:16px 12px;flex-shrink:0}
+  .side .lbl{font-size:10px;letter-spacing:.6px;text-transform:uppercase;color:var(--muted-2);
+    padding:0 10px;margin:6px 0 8px}
+  .nav{display:flex;flex-direction:column;gap:2px;margin-bottom:18px}
+  .nav a{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:var(--r-sm);
+    color:var(--muted);font-size:13.5px;font-weight:500;text-decoration:none;transition:.12s}
+  .nav a .nico{width:16px;text-align:center;opacity:.85}
+  .nav a:hover{background:var(--line-2);color:var(--text)}
+  .nav a.on{background:var(--copper-soft);color:var(--copper-d)}
+  .nav a.on .nico{opacity:1}
+  .side-note{margin-top:auto;background:var(--surface-2);border:1px solid var(--line);
+    border-radius:var(--r-sm);padding:11px;font-size:11.5px;color:var(--muted)}
+  .side-note b{color:var(--text);font-weight:600;display:block;margin-bottom:3px}
+
+  .main{flex:1;padding:22px 26px 60px;max-width:1240px}
+  .ph{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:18px}
+  .ph h1{font-family:var(--display);font-size:23px;font-weight:600;margin:0;letter-spacing:-.2px}
+  .ph p{margin:3px 0 0;color:var(--muted);font-size:13px}
+  .ph .right{display:flex;gap:8px;align-items:center}
+
+  .btn{border:1px solid var(--line);background:var(--surface);color:var(--text);
+    padding:8px 13px;border-radius:var(--r-sm);font-size:13px;font-weight:500;display:inline-flex;
+    align-items:center;gap:7px}
+  .btn:hover{border-color:var(--muted-2)}
+  .btn.primary{background:var(--copper);border-color:var(--copper);color:#fff}
+  .btn.primary:hover{background:var(--copper-d);border-color:var(--copper-d)}
+  .btn.sm{padding:6px 10px;font-size:12px}
+
+  .seg{font-size:11px;color:var(--muted);background:var(--surface);border:1px solid var(--line);
+    border-radius:20px;padding:4px 10px}
+
+  /* ---------- views ---------- */
+  .view{display:none}
+  .view.on{display:block}
+
+  /* ---------- KPI strip ---------- */
+  .kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:16px}
+  .kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+    padding:14px 15px;box-shadow:var(--shadow)}
+  .kpi .k-lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;
+    display:flex;align-items:center;gap:6px}
+  .kpi .k-dot{width:7px;height:7px;border-radius:2px;background:var(--copper)}
+  .kpi .k-val{font-family:var(--display);font-size:25px;font-weight:600;margin-top:8px;letter-spacing:-.5px}
+  .kpi .k-sub{font-size:11.5px;color:var(--muted);margin-top:3px}
+  .kpi .k-sub .up{color:var(--gain);font-weight:600}
+  .kpi .k-sub .dn{color:var(--alert);font-weight:600}
+
+  /* ---------- grid panels ---------- */
+  .grid{display:grid;gap:14px}
+  .g-2{grid-template-columns:1.55fr 1fr}
+  .g-1{grid-template-columns:1fr}
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+    box-shadow:var(--shadow);overflow:hidden;margin-bottom:14px}
+  .panel .head{padding:13px 16px;border-bottom:1px solid var(--line-2);display:flex;
+    align-items:center;justify-content:space-between;gap:10px}
+  .panel .head h3{margin:0;font-size:14.5px;font-weight:600;font-family:var(--display);
+    display:flex;align-items:center;gap:8px}
+  .panel .head .hint{font-size:11.5px;color:var(--muted-2)}
+  .panel .body{padding:16px}
+  .panel .body.tight{padding:6px 8px}
+
+  /* ---------- conversion value loop (signature) ---------- */
+  .loop{display:grid;grid-template-columns:repeat(4,1fr);gap:0;align-items:stretch}
+  .loop .stage{position:relative;padding:16px 18px 16px 22px;background:var(--surface-2);
+    border-right:1px solid var(--line-2)}
+  .loop .stage:first-child{border-radius:var(--r) 0 0 var(--r)}
+  .loop .stage:last-child{border-right:0}
+  .loop .stage:not(:last-child):after{content:"";position:absolute;right:-9px;top:50%;
+    transform:translateY(-50%) rotate(45deg);width:16px;height:16px;background:var(--surface-2);
+    border-top:1px solid var(--line-2);border-right:1px solid var(--line-2);z-index:2}
+  .loop .s-lbl{font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);
+    display:flex;align-items:center;gap:7px}
+  .loop .s-step{font-family:var(--mono);font-size:10px;color:var(--copper);font-weight:600}
+  .loop .s-val{font-family:var(--display);font-size:21px;font-weight:600;margin-top:9px}
+  .loop .s-cnt{font-size:11.5px;color:var(--muted);margin-top:2px}
+  .loop .bar{height:4px;border-radius:3px;margin-top:11px;background:var(--line)}
+  .loop .bar i{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,var(--copper),var(--copper-d))}
+  .loop .stage.won .bar i{background:linear-gradient(90deg,#1FA37A,var(--gain))}
+  .loop .stage.won .s-step{color:var(--gain)}
+
+  /* ---------- bars list ---------- */
+  .rows{display:flex;flex-direction:column;gap:11px}
+  .row-bar{display:grid;grid-template-columns:120px 1fr 58px;align-items:center;gap:12px;font-size:13px}
+  .row-bar .track{height:9px;background:var(--line-2);border-radius:5px;overflow:hidden}
+  .row-bar .track i{display:block;height:100%;border-radius:5px;background:var(--ink-3)}
+  .row-bar .track i.cu{background:var(--copper)}
+  .row-bar .v{text-align:right;font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+
+  /* ---------- activity split ---------- */
+  .acts{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+  .act{border:1px solid var(--line);border-radius:var(--r-sm);padding:12px;text-align:center}
+  .act .a-ico{font-size:17px}
+  .act .a-n{font-family:var(--display);font-size:20px;font-weight:600;margin-top:4px}
+  .act .a-l{font-size:11px;color:var(--muted);margin-top:1px}
+  .act .a-split{display:flex;gap:4px;justify-content:center;margin-top:7px;font-size:10px}
+  .pill{padding:2px 6px;border-radius:5px;font-weight:600}
+  .pill.sel{background:var(--seller-soft);color:var(--seller)}
+  .pill.cus{background:var(--customer-soft);color:var(--copper-d)}
+
+  /* ---------- tables ---------- */
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  thead th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.4px;
+    color:var(--muted);font-weight:600;padding:10px 14px;border-bottom:1px solid var(--line)}
+  tbody td{padding:11px 14px;border-bottom:1px solid var(--line-2)}
+  tbody tr:last-child td{border-bottom:0}
+  tbody tr:hover{background:var(--surface-2)}
+  td.num,th.num{text-align:right;font-family:var(--mono);font-size:12.5px}
+  .nm{font-weight:600}
+  .terr{font-size:11.5px;color:var(--muted)}
+
+  .badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;
+    padding:3px 8px;border-radius:20px}
+  .badge.gain{background:var(--gain-soft);color:var(--gain)}
+  .badge.warn{background:var(--copper-soft);color:var(--copper-d)}
+  .badge.cool{background:var(--seller-soft);color:var(--seller)}
+  .badge.flat{background:var(--line-2);color:var(--muted)}
+
+  .dot{width:7px;height:7px;border-radius:50%;display:inline-block}
+  .stage-tag{font-size:11.5px;font-weight:600}
+
+  /* ---------- sales: my day ---------- */
+  .quick{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:14px}
+  .qbtn{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 10px;
+    text-align:center;box-shadow:var(--shadow);transition:.12s}
+  .qbtn:hover{border-color:var(--copper);transform:translateY(-1px)}
+  .qbtn .q-ico{font-size:19px}
+  .qbtn .q-l{font-size:12.5px;font-weight:600;margin-top:6px}
+
+  .feed{display:flex;flex-direction:column}
+  .fitem{display:flex;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line-2)}
+  .fitem:last-child{border-bottom:0}
+  .fitem .fmark{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;
+    flex-shrink:0;font-size:15px;background:var(--surface-2);border:1px solid var(--line)}
+  .fitem .ftxt{flex:1;font-size:13px}
+  .fitem .ftxt b{font-weight:600}
+  .fitem .fmeta{font-size:11.5px;color:var(--muted);margin-top:2px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .fitem .ftime{font-size:11.5px;color:var(--muted-2);white-space:nowrap}
+
+  .plan{display:flex;flex-direction:column;gap:9px}
+  .pitem{display:flex;align-items:center;gap:11px;padding:10px 12px;border:1px solid var(--line);
+    border-radius:var(--r-sm)}
+  .pitem .ptime{font-family:var(--mono);font-size:12px;color:var(--copper-d);width:64px;font-weight:600}
+  .pitem .pbody{flex:1;font-size:13px}
+  .pitem .pbody b{font-weight:600}
+  .pitem .pbody span{color:var(--muted);font-size:11.5px;display:block}
+
+  /* ---------- cross engine ---------- */
+  .xsearch{display:flex;gap:10px;margin-bottom:14px}
+  .xsearch input{flex:1;height:44px;border:1px solid var(--line);border-radius:var(--r);
+    padding:0 16px;font-size:15px;font-family:var(--mono);background:var(--surface)}
+  .xsearch input:focus{outline:none;border-color:var(--copper);box-shadow:0 0 0 3px var(--copper-soft)}
+  .xrow{display:grid;grid-template-columns:1fr auto 1fr 150px;align-items:center;gap:16px;
+    padding:14px 16px;border-bottom:1px solid var(--line-2)}
+  .xrow:last-child{border-bottom:0}
+  .xpart{font-family:var(--mono)}
+  .xpart .pn{font-size:14px;font-weight:600}
+  .xpart .pd{font-size:11.5px;color:var(--muted);font-family:var(--body);margin-top:2px}
+  .xpart .brand{font-size:10px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted-2)}
+  .xarrow{font-family:var(--mono);font-size:20px;color:var(--copper);font-weight:600}
+  .xlib .pn{color:var(--copper-d)}
+  .xmeta{font-size:11.5px;color:var(--muted);text-align:right}
+  .xmeta b{font-family:var(--mono);color:var(--text)}
+
+  /* ---------- hardware demos ---------- */
+  .hd-status{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600}
+
+  /* ---------- modal ---------- */
+  .scrim{position:fixed;inset:0;background:rgba(15,23,33,.5);backdrop-filter:blur(2px);
+    display:none;align-items:flex-start;justify-content:center;z-index:50;padding:50px 16px}
+  .scrim.on{display:flex}
+  .modal{background:var(--surface);width:540px;max-width:100%;border-radius:14px;overflow:hidden;
+    box-shadow:0 20px 60px rgba(15,23,33,.3)}
+  .modal .m-head{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;
+    align-items:center;justify-content:space-between}
+  .modal .m-head h3{margin:0;font-family:var(--display);font-size:16px;font-weight:600}
+  .modal .m-head button{border:0;background:transparent;font-size:20px;color:var(--muted)}
+  .modal .m-body{padding:20px;max-height:62vh;overflow:auto}
+  .field{margin-bottom:15px}
+  .field label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px;
+    text-transform:uppercase;letter-spacing:.3px}
+  .toggle{display:flex;gap:8px}
+  .toggle button{flex:1;border:1px solid var(--line);background:var(--surface);padding:10px;
+    border-radius:var(--r-sm);font-size:13px;font-weight:600;display:flex;align-items:center;
+    justify-content:center;gap:8px;color:var(--muted)}
+  .toggle button.on.sel{border-color:var(--seller);background:var(--seller-soft);color:var(--seller)}
+  .toggle button.on.cus{border-color:var(--copper);background:var(--copper-soft);color:var(--copper-d)}
+  .chips{display:flex;flex-wrap:wrap;gap:7px}
+  .chip{border:1px solid var(--line);background:var(--surface);padding:7px 12px;border-radius:20px;
+    font-size:12.5px;font-weight:500;color:var(--muted);display:flex;align-items:center;gap:6px}
+  .chip.on{border-color:var(--copper);background:var(--copper-soft);color:var(--copper-d)}
+  .inp,select.inp,textarea.inp{width:100%;border:1px solid var(--line);border-radius:var(--r-sm);
+    padding:9px 11px;font-size:13.5px;font-family:var(--body);background:var(--surface);color:var(--text)}
+  textarea.inp{resize:vertical;min-height:62px}
+  .frow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .modal .m-foot{padding:14px 20px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:9px;
+    background:var(--surface-2)}
+
+  .kpis.kpis-4{grid-template-columns:repeat(4,1fr)}
+  #invChart svg{width:100%;height:auto;display:block}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;font-size:11.5px;color:var(--muted)}
+  .legend span{display:inline-flex;align-items:center;gap:7px}
+  .legend i.ln{display:inline-block;width:18px;height:0}
+  .legend .y24{border-top:2px solid #C2CAD3}
+  .legend .y25{border-top:2px solid #7A8696}
+  .legend .y26{border-top:3px solid var(--copper)}
+  .legend .fc{border-top:2px dashed var(--copper);opacity:.85}
+  .legend .oh{border-top:2px dashed var(--seller)}
+
+  .scopebar{display:flex;gap:11px;align-items:flex-start;background:#F0F3F7;border:1px solid var(--line);
+    border-left:3px solid var(--seller);border-radius:var(--r-sm);padding:10px 14px;margin-bottom:18px;
+    font-size:12.5px;color:var(--muted);line-height:1.5}
+  .scopebar b{color:var(--text);font-weight:600}
+  .scopebar .sb-i{color:var(--seller);font-weight:700;flex-shrink:0}
+
+  .skulink{cursor:pointer;text-decoration:underline;text-decoration-color:transparent;
+    text-underline-offset:2px;transition:.12s}
+  .skulink:hover{color:var(--copper-d);text-decoration-color:var(--copper)}
+
+  .back{display:inline-flex;align-items:center;gap:6px;color:var(--muted);cursor:pointer;
+    font-size:13px;font-weight:500;margin-bottom:14px}
+  .back:hover{color:var(--text)}
+  .sku-hd{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;margin-bottom:18px;flex-wrap:wrap}
+  .brand-badge{display:inline-block;font-size:10.5px;text-transform:uppercase;letter-spacing:.5px;font-weight:600;
+    color:var(--copper-d);background:var(--copper-soft);padding:3px 9px;border-radius:20px;margin-bottom:8px}
+  .sku-id h1{font-family:var(--mono);font-size:26px;font-weight:600;margin:0;letter-spacing:-.5px}
+  .sku-id p{margin:5px 0 0;color:var(--muted);font-size:13px;max-width:470px}
+  .sku-facts{display:flex;gap:10px;flex-wrap:wrap}
+  .fact{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);padding:9px 13px;
+    min-width:84px;box-shadow:var(--shadow)}
+  .fact span{display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted)}
+  .fact b{font-family:var(--display);font-size:18px;font-weight:600}
+  .signal .sig-row{display:flex;justify-content:space-between;font-size:13px;padding:6px 0}
+  .signal .sig-row b{font-family:var(--mono)}
+  .sig-bar{height:11px;border-radius:6px;background:var(--line-2);margin:10px 0;position:relative;overflow:hidden}
+  .sig-bar i{position:absolute;left:0;top:0;height:100%;background:var(--gain);border-radius:6px}
+  .sig-bar u{position:absolute;top:0;height:100%;
+    background:repeating-linear-gradient(45deg,var(--alert),var(--alert) 3px,transparent 3px,transparent 6px);opacity:.55}
+  .sig-note{font-size:12px;color:var(--muted);margin:8px 0 0;line-height:1.5}
+  .xmini{display:flex;align-items:center;gap:10px;padding:9px 4px;border-bottom:1px solid var(--line-2);
+    font-size:13px;font-family:var(--mono)}
+  .xmini:last-child{border-bottom:0}
+  .xmini .lib{color:var(--copper-d);font-weight:600}
+  .xmini .badge{margin-left:auto;font-family:var(--body)}
+
+  .wm{position:fixed;bottom:14px;right:16px;font-size:11px;color:var(--muted-2);
+    background:var(--surface);border:1px solid var(--line);padding:5px 11px;border-radius:20px;z-index:20}
+
+  @media (max-width:1080px){
+    .kpis{grid-template-columns:repeat(3,1fr)}
+    .acts{grid-template-columns:repeat(3,1fr)}
+    .quick{grid-template-columns:repeat(3,1fr)}
+    .g-2{grid-template-columns:1fr}
+    .ask{display:none}
+  }
+  @media (max-width:760px){
+    .side{display:none}
+    .loop{grid-template-columns:1fr 1fr}
+    .kpis,.acts,.quick{grid-template-columns:repeat(2,1fr)}
+    .xrow{grid-template-columns:1fr;gap:8px}
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="brand">
+    <span class="glyph">OB</span>
+    <span>Owned Brands<small>Sales Intelligence</small></span>
+  </div>
+  <div class="persona" id="persona">
+    <button data-persona="lead" class="on">Leadership</button>
+    <button data-persona="sales">Sales Team</button>
+  </div>
+  <div class="ask">
+    <span class="ico">⌕</span>
+    <input placeholder="Ask the data — “Show competitor sell-through in the Northeast with a Liberty cross”">
+    <span class="tag">AI query</span>
+  </div>
+  <div class="who">
+    <div class="meta" style="text-align:right"><b id="whoName">R. Mercer</b><span id="whoRole">VP, Owned Brands</span></div>
+    <div class="av" id="whoAv">RM</div>
+  </div>
+</div>
+
+<div class="shell">
+  <!-- SIDEBAR -->
+  <aside class="side" style="display:flex;flex-direction:column">
+    <!-- leadership nav -->
+    <div class="nav-group" data-for="lead">
+      <div class="lbl">Leadership</div>
+      <nav class="nav">
+        <a class="on" data-go="lead-overview"><span class="nico">◧</span>Overview</a>
+        <a data-go="lead-conversion"><span class="nico">⇄</span>Conversion engine</a>
+        <a data-go="lead-team"><span class="nico">▤</span>Team &amp; territory</a>
+        <a data-go="lead-inventory"><span class="nico">▦</span>Inventory &amp; demand</a>
+      </nav>
+    </div>
+    <!-- sales nav -->
+    <div class="nav-group" data-for="sales" style="display:none">
+      <div class="lbl">Sales Team</div>
+      <nav class="nav">
+        <a class="on" data-go="sales-day"><span class="nico">◐</span>My day</a>
+        <a data-go="sales-cross"><span class="nico">⇄</span>Cross lookup</a>
+        <a data-go="sales-hardware"><span class="nico">▭</span>Hardware demos</a>
+      </nav>
+    </div>
+    <div class="side-note">
+      <b>Wireframe</b>
+      Sample data only. Reads (sales, margin) come from governed Wesco datasets; everything logged here lives in the app's own database.
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <div class="scopebar">
+      <span class="sb-i">ⓘ</span>
+      <div><b>Best-case end state — subject to data access.</b> Every screen here assumes data and integrations not yet secured. The platform will be built to what is achievable from Wesco systems; each capability is contingent on access confirmed with the Data Office and remains a target, not a commitment.</div>
+    </div>
+
+    <!-- ============ LEADERSHIP: OVERVIEW ============ -->
+    <section class="view on" id="lead-overview">
+      <div class="ph">
+        <div>
+          <h1>Owned Brands overview</h1>
+          <p>Quarter to date · all territories · channel + customer activity rolled up</p>
+        </div>
+        <div class="right">
+          <span class="seg">QTD · Q2 FY26</span>
+          <button class="btn sm">Export</button>
+        </div>
+      </div>
+
+      <div class="kpis">
+        <div class="kpi">
+          <div class="k-lbl"><span class="k-dot"></span>Owned-brand revenue</div>
+          <div class="k-val">$4.82M</div>
+          <div class="k-sub"><span class="up">▲ 11.4%</span> vs prior qtr</div>
+        </div>
+        <div class="kpi">
+          <div class="k-lbl"><span class="k-dot" style="background:var(--gain)"></span>Blended margin</div>
+          <div class="k-val">31.6%</div>
+          <div class="k-sub"><span class="up">▲ 1.9 pts</span> vs prior qtr</div>
+        </div>
+        <div class="kpi">
+          <div class="k-lbl"><span class="k-dot"></span>Open pipeline</div>
+          <div class="k-val">$3.1M</div>
+          <div class="k-sub">142 opportunities</div>
+        </div>
+        <div class="kpi">
+          <div class="k-lbl"><span class="k-dot"></span>Conversion in play</div>
+          <div class="k-val">$1.74M</div>
+          <div class="k-sub">competitor spend with a cross</div>
+        </div>
+        <div class="kpi">
+          <div class="k-lbl"><span class="k-dot" style="background:var(--seller)"></span>Engagements</div>
+          <div class="k-val">386</div>
+          <div class="k-sub">calls · visits · demos · training</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="head">
+          <h3><span class="mono" style="color:var(--copper)">⇄</span> Conversion value loop</h3>
+          <span class="hint">competitor sell-through → owned-brand revenue</span>
+        </div>
+        <div class="body tight">
+          <div class="loop">
+            <div class="stage">
+              <div class="s-lbl"><span class="s-step">01</span> Identified</div>
+              <div class="s-val">$6.9M</div>
+              <div class="s-cnt">competitor spend, all Wesco customers</div>
+              <div class="bar"><i style="width:100%"></i></div>
+            </div>
+            <div class="stage">
+              <div class="s-lbl"><span class="s-step">02</span> Crossed</div>
+              <div class="s-val">$4.1M</div>
+              <div class="s-cnt">has an owned-brand equivalent</div>
+              <div class="bar"><i style="width:60%"></i></div>
+            </div>
+            <div class="stage">
+              <div class="s-lbl"><span class="s-step">03</span> In progress</div>
+              <div class="s-val">$1.74M</div>
+              <div class="s-cnt">active opportunity + engagement</div>
+              <div class="bar"><i style="width:25%"></i></div>
+            </div>
+            <div class="stage won">
+              <div class="s-lbl"><span class="s-step">04</span> Converted</div>
+              <div class="s-val">$612K</div>
+              <div class="s-cnt">won QTD · +$193K margin</div>
+              <div class="bar"><i style="width:9%"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid g-2">
+        <div class="panel" style="margin:0">
+          <div class="head"><h3>Pipeline by owned brand</h3><span class="hint">open opportunity value</span></div>
+          <div class="body">
+            <div class="rows">
+              <div class="row-bar"><span>Liberty AV</span><div class="track"><i class="cu" style="width:74%"></i></div><span class="v">$1.46M</span></div>
+              <div class="row-bar"><span>Liberty Cable</span><div class="track"><i class="cu" style="width:52%"></i></div><span class="v">$0.74M</span></div>
+              <div class="row-bar"><span>ProBracket</span><div class="track"><i style="width:38%"></i></div><span class="v">$0.51M</span></div>
+              <div class="row-bar"><span>NetEnclosure</span><div class="track"><i style="width:26%"></i></div><span class="v">$0.29M</span></div>
+              <div class="row-bar"><span>Other owned</span><div class="track"><i style="width:18%"></i></div><span class="v">$0.10M</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="panel" style="margin:0">
+          <div class="head"><h3>Engagement mix</h3><span class="hint">QTD · by party</span></div>
+          <div class="body">
+            <div class="acts">
+              <div class="act"><div class="a-ico">☎</div><div class="a-n">214</div><div class="a-l">Calls</div>
+                <div class="a-split"><span class="pill sel">131</span><span class="pill cus">83</span></div></div>
+              <div class="act"><div class="a-ico">⚑</div><div class="a-n">96</div><div class="a-l">Visits</div>
+                <div class="a-split"><span class="pill sel">22</span><span class="pill cus">74</span></div></div>
+              <div class="act"><div class="a-ico">▷</div><div class="a-n">41</div><div class="a-l">Demos</div>
+                <div class="a-split"><span class="pill sel">9</span><span class="pill cus">32</span></div></div>
+              <div class="act"><div class="a-ico">✓</div><div class="a-n">28</div><div class="a-l">Training</div>
+                <div class="a-split"><span class="pill sel">19</span><span class="pill cus">9</span></div></div>
+              <div class="act"><div class="a-ico">▭</div><div class="a-n">17</div><div class="a-l">HW demos</div>
+                <div class="a-split"><span class="pill cus">17</span></div></div>
+            </div>
+            <div style="margin-top:13px;font-size:11.5px;color:var(--muted);display:flex;gap:14px">
+              <span><span class="pill sel">■</span> Wesco seller</span>
+              <span><span class="pill cus">■</span> Wesco customer</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ LEADERSHIP: CONVERSION ============ -->
+    <section class="view" id="lead-conversion">
+      <div class="ph">
+        <div><h1>Conversion engine</h1><p>Where Wesco customers are buying competitor product that maps to an owned brand</p></div>
+        <div class="right"><span class="seg">Sorted by margin opportunity</span></div>
+      </div>
+      <div class="panel">
+        <div class="head"><h3>Top conversion targets</h3><span class="hint">competitor spend · owned-brand cross · margin lift</span></div>
+        <div class="body" style="padding:0">
+          <table>
+            <thead><tr>
+              <th>Customer</th><th>Competitor part</th><th></th><th>Owned-brand cross</th>
+              <th class="num">Comp. spend</th><th class="num">Margin lift</th><th>Status</th>
+            </tr></thead>
+            <tbody>
+              <tr>
+                <td><div class="nm">Apex AV Integration</div><div class="terr">Northeast</div></td>
+                <td class="mono">EX-CAT6A-1000</td><td class="xarrow">→</td>
+                <td class="mono" style="color:var(--copper-d);font-weight:600">LIB-C6A-BLK-1K</td>
+                <td class="num">$142K</td><td class="num" style="color:var(--gain)">+$41K</td>
+                <td><span class="badge warn">In progress</span></td>
+              </tr>
+              <tr>
+                <td><div class="nm">Crestline Systems</div><div class="terr">Midwest</div></td>
+                <td class="mono">VX-HDB-T70</td><td class="xarrow">→</td>
+                <td class="mono" style="color:var(--copper-d);font-weight:600">LIB-AV-HDB70</td>
+                <td class="num">$98K</td><td class="num" style="color:var(--gain)">+$33K</td>
+                <td><span class="badge cool">Demo scheduled</span></td>
+              </tr>
+              <tr>
+                <td><div class="nm">Northeast Sound &amp; Video</div><div class="terr">Northeast</div></td>
+                <td class="mono">SG-RACK-42U</td><td class="xarrow">→</td>
+                <td class="mono" style="color:var(--copper-d);font-weight:600">NET-ENC-42U</td>
+                <td class="num">$76K</td><td class="num" style="color:var(--gain)">+$28K</td>
+                <td><span class="badge flat">Identified</span></td>
+              </tr>
+              <tr>
+                <td><div class="nm">Summit Pro Audio</div><div class="terr">Southeast</div></td>
+                <td class="mono">PM-MNT-LG</td><td class="xarrow">→</td>
+                <td class="mono" style="color:var(--copper-d);font-weight:600">PB-LRG-TILT</td>
+                <td class="num">$61K</td><td class="num" style="color:var(--gain)">+$22K</td>
+                <td><span class="badge gain">Converted</span></td>
+              </tr>
+              <tr>
+                <td><div class="nm">Riverside Controls</div><div class="terr">West</div></td>
+                <td class="mono">EX-FIB-OM4</td><td class="xarrow">→</td>
+                <td class="mono" style="color:var(--copper-d);font-weight:600">LIB-OM4-LC</td>
+                <td class="num">$54K</td><td class="num" style="color:var(--gain)">+$19K</td>
+                <td><span class="badge warn">In progress</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ LEADERSHIP: TEAM ============ -->
+    <section class="view" id="lead-team">
+      <div class="ph">
+        <div><h1>Team &amp; territory</h1><p>Activity, pipeline, and conversion by Owned Brands seller</p></div>
+        <div class="right"><span class="seg">QTD</span></div>
+      </div>
+      <div class="panel">
+        <div class="body" style="padding:0">
+          <table>
+            <thead><tr>
+              <th>Seller</th><th>Territory</th><th class="num">Engagements</th><th class="num">Open opps</th>
+              <th class="num">Pipeline</th><th class="num">Margin</th><th class="num">Converted QTD</th>
+            </tr></thead>
+            <tbody>
+              <tr><td class="nm">M. Reyes</td><td class="terr">Northeast</td><td class="num">71</td><td class="num">28</td><td class="num">$0.74M</td><td class="num" style="color:var(--gain)">33.1%</td><td class="num">$181K</td></tr>
+              <tr><td class="nm">T. Okafor</td><td class="terr">Southeast</td><td class="num">63</td><td class="num">24</td><td class="num">$0.58M</td><td class="num" style="color:var(--gain)">31.8%</td><td class="num">$142K</td></tr>
+              <tr><td class="nm">D. Patel</td><td class="terr">Midwest</td><td class="num">58</td><td class="num">26</td><td class="num">$0.61M</td><td class="num" style="color:var(--gain)">30.4%</td><td class="num">$118K</td></tr>
+              <tr><td class="nm">S. Klein</td><td class="terr">West</td><td class="num">49</td><td class="num">19</td><td class="num">$0.44M</td><td class="num" style="color:var(--gain)">32.7%</td><td class="num">$96K</td></tr>
+              <tr><td class="nm">J. Boyd</td><td class="terr">South Central</td><td class="num">44</td><td class="num">17</td><td class="num">$0.38M</td><td class="num" style="color:var(--gain)">29.9%</td><td class="num">$75K</td></tr>
+              <tr><td class="nm">Inside team</td><td class="terr">National</td><td class="num">101</td><td class="num">28</td><td class="num">$0.35M</td><td class="num" style="color:var(--gain)">30.2%</td><td class="num">—</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ LEADERSHIP: INVENTORY ============ -->
+    <section class="view" id="lead-inventory">
+      <div class="ph">
+        <div><h1>Inventory &amp; demand</h1><p>Historical sales · current stock overlay · pipeline-driven forecast</p></div>
+        <div class="right"><span class="seg">Owned brands</span><button class="btn sm">Export</button></div>
+      </div>
+
+      <div class="kpis kpis-4">
+        <div class="kpi"><div class="k-lbl"><span class="k-dot"></span>On-hand value</div><div class="k-val">$2.34M</div><div class="k-sub">owned-brand SKUs in stock</div></div>
+        <div class="kpi"><div class="k-lbl"><span class="k-dot" style="background:var(--alert)"></span>Reorder risk</div><div class="k-val">7</div><div class="k-sub">SKUs under 4 wks supply</div></div>
+        <div class="kpi"><div class="k-lbl"><span class="k-dot" style="background:var(--seller)"></span>Overstocked</div><div class="k-val">4</div><div class="k-sub">SKUs over 26 wks supply</div></div>
+        <div class="kpi"><div class="k-lbl"><span class="k-dot"></span>Pipeline demand · 90d</div><div class="k-val">$0.91M</div><div class="k-sub">probability-weighted from opps</div></div>
+      </div>
+
+      <div class="panel">
+        <div class="head">
+          <h3><span class="mono" style="color:var(--copper)">▦</span> LIB-AV-HDB70 — demand vs. supply</h3>
+          <div style="display:flex;gap:10px;align-items:center">
+            <span class="hint">5.5 wks of supply · reorder soon</span>
+            <select class="inp" style="width:auto;padding:6px 10px;font-size:12.5px">
+              <option>LIB-AV-HDB70 · HDBaseT 70m kit</option>
+              <option>LIB-C6A-BLK-1K · Cat6A riser 1000ft</option>
+              <option>NET-ENC-42U · 42U enclosure</option>
+            </select>
+          </div>
+        </div>
+        <div class="body">
+          <div id="invChart"></div>
+          <div class="legend">
+            <span><i class="ln y24"></i>2024 sales</span>
+            <span><i class="ln y25"></i>2025 sales</span>
+            <span><i class="ln y26"></i>2026 sales</span>
+            <span><i class="ln fc"></i>Forecast — pipeline-weighted</span>
+            <span><i class="ln oh"></i>On-hand stock</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" style="margin:0">
+        <div class="head"><h3>All owned-brand SKUs</h3><span class="hint">stock vs. demand vs. pipeline</span></div>
+        <div class="body" style="padding:0">
+          <table>
+            <thead><tr>
+              <th>SKU</th><th>Description</th><th class="num">On-hand</th><th class="num">Avg mo. demand</th>
+              <th class="num">Wks supply</th><th class="num">Pipeline 90d</th><th>Status</th>
+            </tr></thead>
+            <tbody>
+              <tr><td class="mono nm">LIB-AV-HDB70</td><td class="terr">HDBaseT 70m kit</td><td class="num">318</td><td class="num">250</td><td class="num">5.5</td><td class="num">$98K</td><td><span class="badge flat">Watch</span></td></tr>
+              <tr><td class="mono nm">LIB-AV-MTRX8</td><td class="terr">8×8 AV matrix switch</td><td class="num">12</td><td class="num">22</td><td class="num" style="color:var(--alert)">2.4</td><td class="num">$33K</td><td><span class="badge" style="background:var(--alert-soft);color:var(--alert)">Reorder</span></td></tr>
+              <tr><td class="mono nm">NET-ENC-42U</td><td class="terr">42U enclosure</td><td class="num">54</td><td class="num">38</td><td class="num">6.2</td><td class="num">$76K</td><td><span class="badge flat">Watch</span></td></tr>
+              <tr><td class="mono nm">LIB-C6A-BLK-1K</td><td class="terr">Cat6A riser, 1000ft</td><td class="num">1,240</td><td class="num">410</td><td class="num">12.4</td><td class="num">$142K</td><td><span class="badge gain">Healthy</span></td></tr>
+              <tr><td class="mono nm">PB-LRG-TILT</td><td class="terr">Large tilt mount</td><td class="num">206</td><td class="num">64</td><td class="num">13.9</td><td class="num">$61K</td><td><span class="badge gain">Healthy</span></td></tr>
+              <tr><td class="mono nm">LIB-OM4-LC</td><td class="terr">OM4 LC duplex, aqua</td><td class="num">880</td><td class="num">120</td><td class="num">38.0</td><td class="num">$44K</td><td><span class="badge cool">Overstock</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SKU DETAIL (spine) ============ -->
+    <section class="view" id="sku-detail">
+      <a class="back" onclick="skuBack()">← Back</a>
+      <div class="sku-hd">
+        <div class="sku-id">
+          <span class="brand-badge">Liberty AV</span>
+          <h1>LIB-AV-HDB70</h1>
+          <p>HDBaseT 70m transmitter / receiver kit · PoH · IR &amp; RS-232 pass-through</p>
+        </div>
+        <div class="sku-facts">
+          <div class="fact"><span>On-hand</span><b>318</b></div>
+          <div class="fact"><span>Wks supply</span><b style="color:var(--alert)">5.5</b></div>
+          <div class="fact"><span>Margin</span><b style="color:var(--gain)">34%</b></div>
+          <div class="fact"><span>Open pipeline</span><b>$185K</b></div>
+          <div class="fact"><span>QTD revenue</span><b>$412K</b></div>
+        </div>
+      </div>
+
+      <div class="grid g-2">
+        <div class="panel" style="margin:0">
+          <div class="head"><h3>Demand vs. supply</h3><span class="hint">sales history · stock · pipeline forecast</span></div>
+          <div class="body">
+            <div id="skuChart"></div>
+            <div class="legend">
+              <span><i class="ln y24"></i>2024</span>
+              <span><i class="ln y25"></i>2025</span>
+              <span><i class="ln y26"></i>2026</span>
+              <span><i class="ln fc"></i>Forecast — pipeline-weighted</span>
+              <span><i class="ln oh"></i>On-hand stock</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="panel" style="margin:0 0 14px">
+            <div class="head"><h3>Supply signal</h3><span class="hint">can we cover the pipeline?</span></div>
+            <div class="body">
+              <div class="signal">
+                <div class="sig-row"><span>Current coverage</span><b>5.5 wks</b></div>
+                <div class="sig-row"><span>If open pipeline lands</span><b style="color:var(--alert)">3.2 wks</b></div>
+                <div class="sig-bar"><i style="width:58%"></i><u style="left:34%;width:24%"></u></div>
+                <p class="sig-note">Probability-weighted demand from the opportunities below pulls coverage under the 4-week reorder line. Flag for reorder before quoting new conversions on this SKU.</p>
+              </div>
+            </div>
+          </div>
+          <div class="panel" style="margin:0">
+            <div class="head"><h3>Feeding crosses</h3><span class="hint">competitor → this SKU</span></div>
+            <div class="body" style="padding:6px 14px">
+              <div class="xmini"><span>VX-HDB-T70</span><span class="xarrow">→</span><span class="lib">LIB-AV-HDB70</span><span class="badge gain">+34%</span></div>
+              <div class="xmini"><span>HDX-70-KIT</span><span class="xarrow">→</span><span class="lib">LIB-AV-HDB70</span><span class="badge gain">+31%</span></div>
+              <div class="xmini"><span>PR-EXT-70</span><span class="xarrow">→</span><span class="lib">LIB-AV-HDB70</span><span class="badge gain">+29%</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid g-2">
+        <div class="panel" style="margin:0">
+          <div class="head"><h3>Open opportunities</h3><span class="hint">drives the forecast bump</span></div>
+          <div class="body" style="padding:0">
+            <table>
+              <thead><tr><th>Account</th><th>Stage</th><th class="num">Value</th><th class="num">Margin</th><th class="num">Fcst units</th></tr></thead>
+              <tbody>
+                <tr><td class="nm">Crestline Systems</td><td><span class="stage-tag" style="color:var(--seller)">Demo</span></td><td class="num">$98K</td><td class="num" style="color:var(--gain)">+$33K</td><td class="num">120</td></tr>
+                <tr><td class="nm">Riverside Controls</td><td><span class="stage-tag" style="color:var(--copper-d)">Eval</span></td><td class="num">$54K</td><td class="num" style="color:var(--gain)">+$19K</td><td class="num">70</td></tr>
+                <tr><td class="nm">Apex AV Integration</td><td><span class="stage-tag" style="color:var(--copper-d)">Quote</span></td><td class="num">$33K</td><td class="num" style="color:var(--gain)">+$11K</td><td class="num">40</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="panel" style="margin:0">
+          <div class="head"><h3>Recent activity on this SKU</h3></div>
+          <div class="feed">
+            <div class="fitem"><div class="fmark">▭</div><div class="ftxt"><b>Eval unit in field</b><div class="fmeta"><span class="badge cus">Customer</span> Crestline Systems · due Jun 23</div></div><span class="ftime">3d</span></div>
+            <div class="fitem"><div class="fmark">▷</div><div class="ftxt"><b>Demo delivered</b><div class="fmeta"><span class="badge cus">Customer</span> Crestline Systems</div></div><span class="ftime">3d</span></div>
+            <div class="fitem"><div class="fmark">☎</div><div class="ftxt"><b>Cross quote sent</b><div class="fmeta"><span class="badge cus">Customer</span> Apex AV · vs VX-HDB-T70</div></div><span class="ftime">1w</span></div>
+            <div class="fitem"><div class="fmark">✓</div><div class="ftxt"><b>Line-card training</b><div class="fmeta"><span class="badge cool">Seller</span> Branch #214</div></div><span class="ftime">2w</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SALES: MY DAY ============ -->
+    <section class="view" id="sales-day">
+      <div class="ph">
+        <div><h1>My day</h1><p>Thursday, June 19 · 4 planned · Northeast territory</p></div>
+        <div class="right"><button class="btn primary" onclick="openLog()">+ Log activity</button></div>
+      </div>
+
+      <div class="quick">
+        <div class="qbtn" onclick="openLog('Call')"><div class="q-ico">☎</div><div class="q-l">Log call</div></div>
+        <div class="qbtn" onclick="openLog('Visit')"><div class="q-ico">⚑</div><div class="q-l">Log visit</div></div>
+        <div class="qbtn" onclick="openLog('Demo')"><div class="q-ico">▷</div><div class="q-l">Log demo</div></div>
+        <div class="qbtn" onclick="openLog('Training')"><div class="q-ico">✓</div><div class="q-l">Log training</div></div>
+        <div class="qbtn" onclick="openLog('Hardware demo')"><div class="q-ico">▭</div><div class="q-l">Hardware demo</div></div>
+      </div>
+
+      <div class="grid g-2">
+        <div>
+          <div class="panel" style="margin:0 0 14px">
+            <div class="head"><h3>Today's plan</h3><span class="hint">4 stops</span></div>
+            <div class="body">
+              <div class="plan">
+                <div class="pitem"><span class="ptime">9:30</span><div class="pbody"><b>Call — Apex AV Integration</b><span>Follow up on LIB-C6A cross quote · $142K in play</span></div><span class="badge cus">Customer</span></div>
+                <div class="pitem"><span class="ptime">11:00</span><div class="pbody"><b>Visit — Crestline Systems</b><span>HDBaseT demo, bring eval unit</span></div><span class="badge cus">Customer</span></div>
+                <div class="pitem"><span class="ptime">1:30</span><div class="pbody"><b>Training — Wesco branch #214</b><span>Liberty AV line card refresh for 6 sellers</span></div><span class="badge cool">Seller</span></div>
+                <div class="pitem"><span class="ptime">3:00</span><div class="pbody"><b>Call — Summit Pro Audio</b><span>Confirm converted order, schedule reorder</span></div><span class="badge cus">Customer</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="panel" style="margin:0">
+            <div class="head"><h3>My opportunities</h3><span class="hint">SKU-level · 6 open</span></div>
+            <div class="body" style="padding:0">
+              <table>
+                <thead><tr><th>Account</th><th>SKU</th><th>Stage</th><th class="num">Value</th><th class="num">Margin</th></tr></thead>
+                <tbody>
+                  <tr><td class="nm">Apex AV Integration</td><td class="mono">LIB-C6A-BLK-1K</td><td><span class="stage-tag" style="color:var(--copper-d)">Quote</span></td><td class="num">$142K</td><td class="num" style="color:var(--gain)">+$41K</td></tr>
+                  <tr><td class="nm">Crestline Systems</td><td class="mono">LIB-AV-HDB70</td><td><span class="stage-tag" style="color:var(--seller)">Demo</span></td><td class="num">$98K</td><td class="num" style="color:var(--gain)">+$33K</td></tr>
+                  <tr><td class="nm">Northeast Sound &amp; Video</td><td class="mono">NET-ENC-42U</td><td><span class="stage-tag" style="color:var(--muted)">Discovery</span></td><td class="num">$76K</td><td class="num" style="color:var(--gain)">+$28K</td></tr>
+                  <tr><td class="nm">Harbor Point Media</td><td class="mono">LIB-OM4-LC</td><td><span class="stage-tag" style="color:var(--copper-d)">Quote</span></td><td class="num">$44K</td><td class="num" style="color:var(--gain)">+$15K</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel" style="margin:0">
+          <div class="head"><h3>Recent activity</h3><span class="hint">incl. emailed-in</span></div>
+          <div class="feed">
+            <div class="fitem"><div class="fmark">✉</div><div class="ftxt"><b>Email logged automatically</b><div class="fmeta"><span class="badge cus">Customer</span> Apex AV · parsed to call + next step</div></div><span class="ftime">8m</span></div>
+            <div class="fitem"><div class="fmark">▷</div><div class="ftxt"><b>Demo — VX matrix switch</b><div class="fmeta"><span class="badge cus">Customer</span> Crestline Systems</div></div><span class="ftime">Yda</span></div>
+            <div class="fitem"><div class="fmark">✓</div><div class="ftxt"><b>Training delivered</b><div class="fmeta"><span class="badge cool">Seller</span> Branch #214 · 6 attendees</div></div><span class="ftime">Yda</span></div>
+            <div class="fitem"><div class="fmark">☎</div><div class="ftxt"><b>Call — reorder confirmed</b><div class="fmeta"><span class="badge cus">Customer</span> Summit Pro Audio</div></div><span class="ftime">2d</span></div>
+            <div class="fitem"><div class="fmark">▭</div><div class="ftxt"><b>Eval unit shipped</b><div class="fmeta"><span class="badge cus">Customer</span> Riverside Controls · LIB-AV-HDB70</div></div><span class="ftime">3d</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SALES: CROSS LOOKUP ============ -->
+    <section class="view" id="sales-cross">
+      <div class="ph">
+        <div><h1>Cross lookup</h1><p>Competitor part in, owned-brand equivalent out · searchable, living database</p></div>
+        <div class="right"><button class="btn sm">+ Add cross</button></div>
+      </div>
+      <div class="xsearch">
+        <input id="xq" placeholder="Enter a competitor part #  ·  e.g. EX-CAT6A-1000" oninput="filterX()">
+        <button class="btn primary" onclick="filterX()">Search</button>
+      </div>
+      <div class="panel" style="margin:0">
+        <div class="head"><h3>Matches</h3><span class="hint" id="xcount">5 crosses</span></div>
+        <div class="body" style="padding:0" id="xlist">
+          <div class="xrow" data-q="ex-cat6a-1000 cat6a cable liberty">
+            <div class="xpart"><div class="brand">Competitor</div><div class="pn">EX-CAT6A-1000</div><div class="pd">Cat6A U/UTP, 1000ft, black</div></div>
+            <div class="xarrow">→</div>
+            <div class="xpart xlib"><div class="brand">Liberty AV</div><div class="pn">LIB-C6A-BLK-1K</div><div class="pd">Cat6A riser, 1000ft, black</div></div>
+            <div class="xmeta">margin <b style="color:var(--gain)">+29%</b><br>stock <b>1,240</b></div>
+          </div>
+          <div class="xrow" data-q="vx-hdb-t70 hdbaset extender liberty">
+            <div class="xpart"><div class="brand">Competitor</div><div class="pn">VX-HDB-T70</div><div class="pd">HDBaseT extender, 70m</div></div>
+            <div class="xarrow">→</div>
+            <div class="xpart xlib"><div class="brand">Liberty AV</div><div class="pn">LIB-AV-HDB70</div><div class="pd">HDBaseT 70m kit, PoH</div></div>
+            <div class="xmeta">margin <b style="color:var(--gain)">+34%</b><br>stock <b>318</b></div>
+          </div>
+          <div class="xrow" data-q="sg-rack-42u enclosure rack netenclosure">
+            <div class="xpart"><div class="brand">Competitor</div><div class="pn">SG-RACK-42U</div><div class="pd">42U server rack enclosure</div></div>
+            <div class="xarrow">→</div>
+            <div class="xpart xlib"><div class="brand">NetEnclosure</div><div class="pn">NET-ENC-42U</div><div class="pd">42U enclosure, vented doors</div></div>
+            <div class="xmeta">margin <b style="color:var(--gain)">+37%</b><br>stock <b>54</b></div>
+          </div>
+          <div class="xrow" data-q="pm-mnt-lg mount bracket probracket">
+            <div class="xpart"><div class="brand">Competitor</div><div class="pn">PM-MNT-LG</div><div class="pd">Large tilt display mount</div></div>
+            <div class="xarrow">→</div>
+            <div class="xpart xlib"><div class="brand">ProBracket</div><div class="pn">PB-LRG-TILT</div><div class="pd">Large tilt mount, 90–120"</div></div>
+            <div class="xmeta">margin <b style="color:var(--gain)">+41%</b><br>stock <b>206</b></div>
+          </div>
+          <div class="xrow" data-q="ex-fib-om4 fiber om4 liberty">
+            <div class="xpart"><div class="brand">Competitor</div><div class="pn">EX-FIB-OM4</div><div class="pd">OM4 fiber, LC-LC duplex</div></div>
+            <div class="xarrow">→</div>
+            <div class="xpart xlib"><div class="brand">Liberty AV</div><div class="pn">LIB-OM4-LC</div><div class="pd">OM4 LC duplex, aqua</div></div>
+            <div class="xmeta">margin <b style="color:var(--gain)">+26%</b><br>stock <b>880</b></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SALES: HARDWARE DEMOS ============ -->
+    <section class="view" id="sales-hardware">
+      <div class="ph">
+        <div><h1>Hardware demos</h1><p>Eval and loaner units in the field · who has what, and when it's due back</p></div>
+        <div class="right"><button class="btn primary" onclick="openLog('Hardware demo')">+ Check out unit</button></div>
+      </div>
+      <div class="panel" style="margin:0">
+        <div class="body" style="padding:0">
+          <table>
+            <thead><tr><th>Unit</th><th>With</th><th>Out</th><th>Due back</th><th>Status</th><th>Outcome</th></tr></thead>
+            <tbody>
+              <tr><td class="mono">LIB-AV-HDB70</td><td class="nm">Crestline Systems <span class="badge cus" style="margin-left:6px">Customer</span></td><td class="mono">Jun 16</td><td class="mono">Jun 23</td><td><span class="hd-status"><span class="dot" style="background:var(--gain)"></span>In field</span></td><td class="terr">Eval going well</td></tr>
+              <tr><td class="mono">VX-MATRIX-8</td><td class="nm">Riverside Controls <span class="badge cus" style="margin-left:6px">Customer</span></td><td class="mono">Jun 12</td><td class="mono">Jun 19</td><td><span class="hd-status"><span class="dot" style="background:var(--copper)"></span>Due today</span></td><td class="terr">Decision pending</td></tr>
+              <tr><td class="mono">NET-ENC-42U</td><td class="nm">Apex AV Integration <span class="badge cus" style="margin-left:6px">Customer</span></td><td class="mono">Jun 05</td><td class="mono">Jun 12</td><td><span class="hd-status"><span class="dot" style="background:var(--alert)"></span>Overdue</span></td><td class="terr">Chase pickup</td></tr>
+              <tr><td class="mono">LIB-C6A-TEST</td><td class="nm">Branch #214 <span class="badge cool" style="margin-left:6px">Seller</span></td><td class="mono">Jun 02</td><td class="mono">—</td><td><span class="hd-status"><span class="dot" style="background:var(--seller)"></span>Branch sample</span></td><td class="terr">Counter display</td></tr>
+              <tr><td class="mono">PB-LRG-TILT</td><td class="nm">Summit Pro Audio <span class="badge cus" style="margin-left:6px">Customer</span></td><td class="mono">May 28</td><td class="mono">Jun 04</td><td><span class="hd-status"><span class="dot" style="background:var(--muted-2)"></span>Returned</span></td><td class="badge gain">Converted</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- LOG MODAL -->
+<div class="scrim" id="scrim">
+  <div class="modal">
+    <div class="m-head"><h3 id="mTitle">Log activity</h3><button onclick="closeLog()">×</button></div>
+    <div class="m-body">
+      <div class="field">
+        <label>Who is this with?</label>
+        <div class="toggle" id="partyToggle">
+          <button class="sel" data-party="sel" onclick="setParty('sel')">⚑ Wesco seller</button>
+          <button class="cus on" data-party="cus" onclick="setParty('cus')">◆ Wesco customer</button>
+        </div>
+      </div>
+      <div class="field">
+        <label>Activity type</label>
+        <div class="chips" id="typeChips">
+          <span class="chip" data-t="Call">☎ Call</span>
+          <span class="chip" data-t="Visit">⚑ Visit</span>
+          <span class="chip" data-t="Demo">▷ Demo</span>
+          <span class="chip" data-t="Training">✓ Training</span>
+          <span class="chip" data-t="Hardware demo">▭ Hardware demo</span>
+        </div>
+      </div>
+      <div class="frow">
+        <div class="field"><label id="acctLbl">Customer / account</label><input class="inp" placeholder="Start typing…" value="Apex AV Integration"></div>
+        <div class="field"><label>Contact</label><input class="inp" placeholder="Name"></div>
+      </div>
+      <div class="frow">
+        <div class="field"><label>Linked SKU / opportunity</label><input class="inp mono" placeholder="LIB-…"></div>
+        <div class="field"><label>Date</label><input class="inp" type="date" value="2026-06-19"></div>
+      </div>
+      <div class="field"><label>Notes</label><textarea class="inp" placeholder="What happened…"></textarea></div>
+      <div class="frow">
+        <div class="field"><label>Next step</label><input class="inp" placeholder="e.g. Send cross quote"></div>
+        <div class="field"><label>Follow-up date</label><input class="inp" type="date"></div>
+      </div>
+    </div>
+    <div class="m-foot"><button class="btn" onclick="closeLog()">Cancel</button><button class="btn primary" onclick="closeLog()">Save activity</button></div>
+  </div>
+</div>
+
+<div class="wm">Wireframe · sample data</div>
+
+<script>
+  // persona switch
+  const personaBtns=document.querySelectorAll('#persona button');
+  const groups=document.querySelectorAll('.nav-group');
+  const whoName=document.getElementById('whoName'),whoRole=document.getElementById('whoRole'),whoAv=document.getElementById('whoAv');
+  personaBtns.forEach(b=>b.addEventListener('click',()=>{
+    personaBtns.forEach(x=>x.classList.remove('on'));b.classList.add('on');
+    const p=b.dataset.persona;
+    groups.forEach(g=>g.style.display=(g.dataset.for===p)?'block':'none');
+    if(p==='lead'){whoName.textContent='R. Mercer';whoRole.textContent='VP, Owned Brands';whoAv.textContent='RM';go('lead-overview');}
+    else{whoName.textContent='M. Reyes';whoRole.textContent='Seller · Northeast';whoAv.textContent='MR';go('sales-day');}
+  }));
+
+  // nav switch
+  function go(id){
+    document.querySelectorAll('.view').forEach(v=>v.classList.toggle('on',v.id===id));
+    document.querySelectorAll('.nav a').forEach(a=>a.classList.toggle('on',a.dataset.go===id));
+  }
+  document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();go(a.dataset.go);}));
+
+  // modal
+  const scrim=document.getElementById('scrim');
+  function openLog(type){
+    scrim.classList.add('on');
+    document.getElementById('mTitle').textContent=type?('Log '+type.toLowerCase()):'Log activity';
+    document.querySelectorAll('#typeChips .chip').forEach(c=>c.classList.toggle('on',c.dataset.t===type));
+  }
+  function closeLog(){scrim.classList.remove('on');}
+  scrim.addEventListener('click',e=>{if(e.target===scrim)closeLog();});
+  document.querySelectorAll('#typeChips .chip').forEach(c=>c.addEventListener('click',()=>{
+    document.querySelectorAll('#typeChips .chip').forEach(x=>x.classList.remove('on'));c.classList.add('on');
+  }));
+  function setParty(p){
+    document.querySelectorAll('#partyToggle button').forEach(b=>b.classList.toggle('on',b.dataset.party===p));
+    document.getElementById('acctLbl').textContent=(p==='sel')?'Wesco seller / branch':'Customer / account';
+  }
+
+  // cross filter
+  function filterX(){
+    const q=document.getElementById('xq').value.trim().toLowerCase();
+    let n=0;
+    document.querySelectorAll('#xlist .xrow').forEach(r=>{
+      const hit=!q||r.dataset.q.includes(q);
+      r.style.display=hit?'grid':'none';if(hit)n++;
+    });
+    document.getElementById('xcount').textContent=n+(n===1?' cross':' crosses');
+  }
+
+  // demand chart — reused on inventory + SKU detail
+  function renderDemand(elId){
+    const X0=52,X1=782,Y0=232,YT=18,VMAX=360;
+    const xAt=i=>X0+(X1-X0)*(i/11);
+    const yAt=v=>Y0-(v/VMAX)*(Y0-YT);
+    const d24=[120,135,142,150,160,155,148,162,170,168,175,180];
+    const d25=[150,165,172,180,190,185,178,195,205,200,210,220];
+    const d26=[200,215,225,240,255,250];
+    const fc=[250,270,285,300]; // Jun → Sep, lifted by conversion pipeline
+    const onhand=318;
+    const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const ln=(arr,start)=>arr.map((v,k)=>`${k?'L':'M'}${xAt(start+k).toFixed(1)},${yAt(v).toFixed(1)}`).join(' ');
+    let grid='';
+    [0,90,180,270,360].forEach(v=>{const y=yAt(v).toFixed(1);
+      grid+=`<line x1="${X0}" y1="${y}" x2="${X1}" y2="${y}" stroke="#EEF1F4"/>`+
+            `<text x="${X0-8}" y="${(+y+3).toFixed(1)}" text-anchor="end" font-size="10" fill="#97A1AE" font-family="IBM Plex Mono">${v}</text>`;});
+    let ml='';months.forEach((m,i)=>{ml+=`<text x="${xAt(i).toFixed(1)}" y="252" text-anchor="middle" font-size="10" fill="#97A1AE">${m}</text>`;});
+    const ohY=yAt(onhand).toFixed(1);
+    const svg=`<svg viewBox="0 0 800 264" preserveAspectRatio="xMidYMid meet">${grid}${ml}`+
+      `<rect x="${xAt(5).toFixed(1)}" y="${YT}" width="${(X1-xAt(5)).toFixed(1)}" height="${Y0-YT}" fill="#F5F6F8" opacity="0.7"/>`+
+      `<text x="${xAt(7).toFixed(1)}" y="30" text-anchor="middle" font-size="9.5" fill="#97A1AE" letter-spacing="0.5">FORECAST</text>`+
+      `<line x1="${X0}" y1="${ohY}" x2="${X1}" y2="${ohY}" stroke="#34679C" stroke-width="2" stroke-dasharray="2 4"/>`+
+      `<text x="${X1}" y="${(+ohY-6).toFixed(1)}" text-anchor="end" font-size="10.5" fill="#34679C" font-weight="600">On-hand 318</text>`+
+      `<path d="${ln(d24,0)}" fill="none" stroke="#C2CAD3" stroke-width="2"/>`+
+      `<path d="${ln(d25,0)}" fill="none" stroke="#7A8696" stroke-width="2"/>`+
+      `<path d="${ln(fc,5)}" fill="none" stroke="#2F9E5E" stroke-width="2.5" stroke-dasharray="5 4" opacity="0.75"/>`+
+      `<path d="${ln(d26,0)}" fill="none" stroke="#2F9E5E" stroke-width="3"/>`+
+      d26.map((v,k)=>`<circle cx="${xAt(k).toFixed(1)}" cy="${yAt(v).toFixed(1)}" r="3.2" fill="#2F9E5E"/>`).join('')+
+      `<circle cx="${xAt(8).toFixed(1)}" cy="${yAt(300).toFixed(1)}" r="3.4" fill="#fff" stroke="#2F9E5E" stroke-width="2"/>`+
+      `</svg>`;
+    const el=document.getElementById(elId); if(el) el.innerHTML=svg;
+  }
+  renderDemand('invChart'); renderDemand('skuChart');
+
+  // SKU detail drill-down (the spine)
+  let skuReturn='lead-inventory';
+  function curView(){const v=document.querySelector('.view.on');return v?v.id:'lead-inventory';}
+  function openSku(ret){skuReturn=ret||curView();go('sku-detail');window.scrollTo(0,0);}
+  function skuBack(){go(skuReturn);window.scrollTo(0,0);}
+  ['#lead-inventory tbody td.mono','#sales-day tbody td.mono','#lead-conversion tbody td.mono','#xlist .xpart.xlib']
+    .forEach(sel=>document.querySelectorAll(sel).forEach(c=>{
+      c.classList.add('skulink');
+      c.addEventListener('click',()=>openSku(curView()));
+    }));
+</script>
+</body>
+</html>

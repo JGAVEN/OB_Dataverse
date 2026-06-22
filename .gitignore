@@ -39,5 +39,6 @@ Board pitch/build_realnames.sh
 
 # QA scratch from doc rendering (regenerated on demand)
 Board pitch/*.jpg
+Board pitch/tour-*.png
 Board pitch/raw/
 Board pitch/unpacked/

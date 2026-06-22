@@ -6,6 +6,10 @@ All notable changes to this project are documented here. Format follows
 
 ## [Unreleased]
 ### Added
+- Interactive guided walk-through on the wireframe (`Project planning/index.html`):
+  a scenario-driven product tour (competitor part to cross to captured opportunity
+  to worked to measured) with spotlight + popup, persona/view switching, keyboard
+  nav, and a `?tour=1` deep-link for auto-start. Stays anonymized (no real names).
 - Architecture and governance scaffold: `README`, `ARCHITECTURE`, ADR practice
   (`docs/adr/`), `CONTRIBUTING`, `SECURITY`, this changelog.
 - Repo consistency + collaboration tooling: `.editorconfig`, `.gitattributes`,

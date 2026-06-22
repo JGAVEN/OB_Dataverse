@@ -323,6 +323,38 @@
     .kpis,.acts,.quick{grid-template-columns:repeat(2,1fr)}
     .xrow{grid-template-columns:1fr;gap:8px}
   }
+
+  /* ---------- guided walk-through ---------- */
+  .tour-launch{position:fixed;left:16px;bottom:14px;z-index:40;background:var(--copper);color:#fff;
+    border:0;border-radius:22px;padding:10px 17px;font-size:13px;font-weight:600;font-family:var(--body);
+    box-shadow:0 4px 16px rgba(20,33,46,.24);display:flex;align-items:center;gap:8px}
+  .tour-launch:hover{background:var(--copper-d)}
+  .tour-on .tour-launch{display:none}
+  .tour-spot{position:fixed;left:50%;top:50%;width:0;height:0;border-radius:11px;
+    box-shadow:0 0 0 9999px rgba(15,23,33,.72);z-index:60;pointer-events:none;display:none;
+    outline:2px solid var(--copper);outline-offset:3px;
+    transition:left .32s cubic-bezier(.4,0,.2,1),top .32s cubic-bezier(.4,0,.2,1),width .32s cubic-bezier(.4,0,.2,1),height .32s cubic-bezier(.4,0,.2,1)}
+  .tour-on .tour-spot{display:block}
+  .tour-pop{position:fixed;z-index:61;width:344px;max-width:calc(100vw - 32px);background:var(--surface);
+    border-radius:13px;box-shadow:0 18px 52px rgba(15,23,33,.36);padding:18px 18px 15px;display:none;
+    transition:left .32s cubic-bezier(.4,0,.2,1),top .32s cubic-bezier(.4,0,.2,1)}
+  .tour-on .tour-pop{display:block}
+  .tour-pop .tp-step{font-family:var(--mono);font-size:11px;color:var(--copper);font-weight:600;letter-spacing:.5px}
+  .tour-pop h4{font-family:var(--display);font-size:16.5px;font-weight:600;margin:6px 0 7px;letter-spacing:-.2px}
+  .tour-pop p{font-size:13px;color:var(--text);line-height:1.5;margin:0}
+  .tour-pop .tp-foot{display:flex;align-items:center;justify-content:space-between;margin-top:16px;gap:10px}
+  .tour-pop .tp-dots{display:flex;gap:5px}
+  .tour-pop .tp-dots i{width:6px;height:6px;border-radius:50%;background:var(--line);display:block;transition:.2s}
+  .tour-pop .tp-dots i.on{background:var(--copper);transform:scale(1.15)}
+  .tour-pop .tp-btns{display:flex;gap:7px}
+  .tour-pop .tp-btns button{border:1px solid var(--line);background:var(--surface);color:var(--text);
+    padding:7px 14px;border-radius:7px;font-size:12.5px;font-weight:600}
+  .tour-pop .tp-btns button:hover{border-color:var(--muted-2)}
+  .tour-pop .tp-btns button.primary{background:var(--copper);border-color:var(--copper);color:#fff}
+  .tour-pop .tp-btns button.primary:hover{background:var(--copper-d)}
+  .tour-pop .tp-x{position:absolute;top:11px;right:13px;border:0;background:transparent;color:var(--muted-2);
+    font-size:18px;line-height:1;padding:2px}
+  .tour-pop .tp-x:hover{color:var(--text)}
 </style>
 </head>
 <body>
@@ -890,6 +922,23 @@
 
 <div class="wm">Wireframe · sample data</div>
 
+<!-- GUIDED WALK-THROUGH -->
+<button class="tour-launch" id="tourLaunch" onclick="tourStart()">▶ Guided walk-through</button>
+<div class="tour-spot" id="tourSpot"></div>
+<div class="tour-pop" id="tourPop">
+  <button class="tp-x" onclick="tourEnd()" aria-label="Close">×</button>
+  <div class="tp-step" id="tpStep"></div>
+  <h4 id="tpTitle"></h4>
+  <p id="tpBody"></p>
+  <div class="tp-foot">
+    <div class="tp-dots" id="tpDots"></div>
+    <div class="tp-btns">
+      <button id="tpPrev" onclick="tourPrev()">Back</button>
+      <button class="primary" id="tpNext" onclick="tourNext()">Next</button>
+    </div>
+  </div>
+</div>
+
 <script>
   // persona switch
   const personaBtns=document.querySelectorAll('#persona button');
@@ -982,6 +1031,85 @@
       c.classList.add('skulink');
       c.addEventListener('click',()=>openSku(curView()));
     }));
+
+  // ---------- guided walk-through ----------
+  const TOUR=[
+    {persona:'lead',view:'lead-overview',sel:null,
+      title:'How a competitor part becomes won margin',
+      body:'A short tour of the engine: a competitor part a WCO customer buys, crossed to an owned brand, worked to a won deal, and measured. Sample data throughout.'},
+    {persona:'sales',view:'sales-cross',sel:'#xlist .xrow:first-child',
+      title:'It starts with the cross',
+      body:'A competitor part in, the owned-brand equivalent and its margin out. One living, searchable database, kept current automatically.'},
+    {persona:'lead',view:'lead-conversion',sel:'#lead-conversion table',
+      title:'Crossed across the book, and captured',
+      body:'Every competitor part WCO customers buy is crossed, ranked by margin lift, and logged as a tracked opportunity with an owner and a status. The capture step the manual process never had.'},
+    {persona:'lead',view:'lead-overview',sel:'#lead-overview .loop',
+      title:'The whole funnel in one view',
+      body:'Identified competitor spend, crossed to an owned brand, in progress, then converted. Leadership watches value move from first signal to won margin.'},
+    {persona:'sales',view:'sales-day',sel:'#sales-day .feed',
+      title:'Worked, and logged',
+      body:'The team works those opportunities with calls, visits, and demos to WCO sellers and customers, all logged, including notes emailed straight in and parsed automatically.'},
+    {persona:'lead',view:'lead-overview',sel:'#lead-overview .kpis',
+      title:'Measured in revenue and margin',
+      body:'The result, tracked: owned-brand revenue and a lifted blended margin. Every number here traces back to a cross.'},
+    {persona:'lead',view:'lead-overview',sel:null,
+      title:'That is the engine',
+      body:'This is a wireframe on sample data: the intended experience, not a built product. The real version runs locally, with nothing leaving the tenant.'},
+  ];
+  let tStep=0;
+  const tEl=id=>document.getElementById(id);
+  function tourSetPersona(p){const b=document.querySelector('#persona button[data-persona="'+p+'"]');
+    if(b && !b.classList.contains('on')) b.click();}
+  function tourPlace(){
+    const s=TOUR[tStep], spot=tEl('tourSpot'), pop=tEl('tourPop');
+    const vw=innerWidth, vh=innerHeight, pad=8, gap=18;
+    const pr=pop.getBoundingClientRect(), ph=pr.height||190, pw=pr.width||344;
+    const el=s.sel?document.querySelector(s.sel):null;
+    const r=el?el.getBoundingClientRect():null;
+    if(r && r.width>0){
+      spot.style.left=(r.left-pad)+'px'; spot.style.top=(r.top-pad)+'px';
+      spot.style.width=(r.width+pad*2)+'px'; spot.style.height=(r.height+pad*2)+'px';
+      let top, left=r.left;
+      if(r.bottom+gap+ph<=vh-10){ top=r.bottom+gap; }          // below if it fits
+      else if(r.top-gap-ph>=10){ top=r.top-gap-ph; }            // else above
+      else {                                                    // else beside, centered on element
+        top=r.top+r.height/2-ph/2;
+        if(r.right+gap+pw<=vw-10) left=r.right+gap;
+        else if(r.left-gap-pw>=10) left=r.left-gap-pw;
+        else top=vh-ph-10;                                      // last resort: pin to bottom
+      }
+      top=Math.min(Math.max(10,top),vh-ph-10);
+      left=Math.min(Math.max(10,left),vw-pw-10);
+      pop.style.left=left+'px'; pop.style.top=top+'px';
+    } else {
+      spot.style.left=(vw/2-1)+'px'; spot.style.top=(vh/2-1)+'px'; spot.style.width='2px'; spot.style.height='2px';
+      pop.style.left=((vw-pw)/2)+'px'; pop.style.top=Math.max(12,(vh-ph)/2)+'px';
+    }
+  }
+  function tourShow(i){
+    tStep=Math.max(0,Math.min(TOUR.length-1,i));
+    const s=TOUR[tStep];
+    tourSetPersona(s.persona); go(s.view);
+    tEl('tpDots').innerHTML=TOUR.map((_,k)=>'<i class="'+(k===tStep?'on':'')+'"></i>').join('');
+    tEl('tpStep').textContent='Step '+(tStep+1)+' of '+TOUR.length;
+    tEl('tpTitle').textContent=s.title;
+    tEl('tpBody').textContent=s.body;
+    tEl('tpPrev').style.visibility=tStep===0?'hidden':'visible';
+    tEl('tpNext').textContent=tStep===TOUR.length-1?'Done':'Next';
+    const el=s.sel?document.querySelector(s.sel):null;
+    if(el) el.scrollIntoView({block:'center',inline:'nearest'});
+    requestAnimationFrame(tourPlace);
+    setTimeout(tourPlace,70);
+  }
+  function tourStart(){document.body.classList.add('tour-on');tourShow(0);}
+  function tourNext(){if(tStep>=TOUR.length-1)tourEnd();else tourShow(tStep+1);}
+  function tourPrev(){tourShow(tStep-1);}
+  function tourEnd(){document.body.classList.remove('tour-on');}
+  addEventListener('keydown',e=>{if(!document.body.classList.contains('tour-on'))return;
+    if(e.key==='Escape')tourEnd();else if(e.key==='ArrowRight'||e.key===' ')tourNext();else if(e.key==='ArrowLeft')tourPrev();});
+  addEventListener('resize',()=>{if(document.body.classList.contains('tour-on'))tourPlace();});
+  (function(){const m=location.search.match(/tour=(\d+)?/);
+    if(m) setTimeout(()=>{tourStart();if(m[1])tourShow(+m[1]-1);},450);})();
 </script>
 </body>
 </html>

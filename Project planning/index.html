@@ -15,7 +15,8 @@
     --text:#19222E; --muted:#6C7888; --muted-2:#97A1AE;
     --copper:#2F9E5E; --copper-d:#237A47; --copper-soft:#E5F3EB;
     --gain:#176B45; --gain-soft:#E0EEE7;
-    --alert:#C13B2A; --alert-soft:#F7E5E1;
+    --alert:#C13B2A; --alert-soft:#F7E5E1; --alert-line:#E7C3BC;
+    --drop:#5B4B8A; --drop-soft:#EDE7F6;
     --seller:#34679C; --seller-soft:#E6EEF5;
     --customer:#2F9E5E; --customer-soft:#E5F3EB;
     --r:10px; --r-sm:7px;
@@ -90,6 +91,9 @@
   .btn.primary{background:var(--copper);border-color:var(--copper);color:#fff}
   .btn.primary:hover{background:var(--copper-d);border-color:var(--copper-d)}
   .btn.sm{padding:6px 10px;font-size:12px}
+  .btn:focus-visible,.preset:focus-visible,.qbtn:focus-visible,.chip:focus-visible,
+  .nav a:focus-visible,.persona button:focus-visible,.toggle button:focus-visible,
+  select.inp:focus-visible,input.inp:focus-visible{outline:2px solid var(--copper);outline-offset:2px}
 
   .seg{font-size:11px;color:var(--muted);background:var(--surface);border:1px solid var(--line);
     border-radius:20px;padding:4px 10px}
@@ -179,6 +183,7 @@
   .badge.warn{background:var(--copper-soft);color:var(--copper-d)}
   .badge.cool{background:var(--seller-soft);color:var(--seller)}
   .badge.flat{background:var(--line-2);color:var(--muted)}
+  .badge.drop{background:var(--drop-soft);color:var(--drop)}
 
   .dot{width:7px;height:7px;border-radius:50%;display:inline-block}
   .stage-tag{font-size:11.5px;font-weight:600}
@@ -225,6 +230,54 @@
   .xlib .pn{color:var(--copper-d)}
   .xmeta{font-size:11.5px;color:var(--muted);text-align:right}
   .xmeta b{font-family:var(--mono);color:var(--text)}
+
+  /* ---------- cross opportunities (identify) ---------- */
+  .calib{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+    box-shadow:var(--shadow);padding:13px 16px;margin-bottom:14px}
+  .calib .crow{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .clbl{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);
+    font-weight:600}
+  .calib select.inp,.calib input.inp{width:auto;min-width:128px;padding:7px 10px;font-size:12.5px}
+  .calib input.num-in{width:72px;min-width:0}
+  .presets{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-bottom:11px;
+    padding-bottom:12px;border-bottom:1px solid var(--line-2)}
+  .preset{border:1px solid var(--line);background:var(--surface);padding:6px 11px;border-radius:20px;
+    font-size:12px;font-weight:500;color:var(--muted);display:inline-flex;align-items:center;gap:6px;
+    font-family:var(--body)}
+  .preset:hover{border-color:var(--muted-2);color:var(--text)}
+  .preset.on{border-color:var(--copper);background:var(--copper-soft);color:var(--copper-d)}
+  .preset .pct{font-family:var(--mono);font-size:10.5px;opacity:.75}
+  .tgt{color:var(--seller);font-weight:700;cursor:help;font-size:10px;vertical-align:super;margin-left:1px}
+  .surf{font-size:11px;color:var(--muted);background:var(--surface-2);border:1px solid var(--line);
+    border-radius:5px;padding:2px 7px;white-space:nowrap}
+  .urg{font-family:var(--mono);font-size:11.5px;font-weight:600}
+  .urg.soon{color:var(--alert)} .urg.mid{color:var(--copper-d)} .urg.far{color:var(--muted)}
+  .liftc{color:var(--gain);font-weight:600}
+  tr.claimed{opacity:.6}
+  tr.claimed td.co-act,tr.claimed td.mono.xcross{filter:grayscale(1)}
+  @keyframes flashin{0%{background:var(--copper-soft)}100%{background:transparent}}
+  tr.flash{animation:flashin 1.7s ease-out}
+  .co-act .btn{padding:6px 12px;font-size:12px}
+  .srcfilt{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px;align-items:center}
+  .note-tgt{font-size:11.5px;color:var(--muted);margin:12px 2px 0;line-height:1.5}
+
+  /* ---------- leadership leak strip ---------- */
+  .leak{display:flex;gap:11px;flex-wrap:wrap;margin-bottom:14px}
+  .leak .ls{flex:1;min-width:158px;background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--r);box-shadow:var(--shadow);padding:13px 15px}
+  .leak .ls .l-l{font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);
+    display:flex;align-items:center;gap:7px}
+  .leak .ls .l-v{font-family:var(--display);font-size:23px;font-weight:600;margin-top:7px;letter-spacing:-.5px}
+  .leak .ls .l-s{font-size:11.5px;color:var(--muted);margin-top:2px}
+  .leak .ls.alert{border-color:var(--alert-line);background:var(--alert-soft)}
+  .leak .ls.alert .l-v{color:var(--alert)}
+
+  /* ---------- toast ---------- */
+  .toast{position:fixed;left:50%;bottom:62px;transform:translateX(-50%) translateY(18px);
+    background:var(--ink);color:#fff;padding:10px 17px;border-radius:22px;font-size:13px;font-weight:500;
+    box-shadow:0 6px 22px rgba(20,33,46,.3);opacity:0;pointer-events:none;transition:.25s;z-index:45;
+    display:flex;gap:9px;align-items:center;max-width:calc(100vw - 32px)}
+  .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 
   /* ---------- hardware demos ---------- */
   .hd-status{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600}
@@ -322,6 +375,8 @@
     .loop{grid-template-columns:1fr 1fr}
     .kpis,.acts,.quick{grid-template-columns:repeat(2,1fr)}
     .xrow{grid-template-columns:1fr;gap:8px}
+    .panel .body{overflow-x:auto}
+    .calib select.inp,.calib input.inp{flex:1 1 100%;min-width:0}
   }
 
   /* ---------- guided walk-through ---------- */
@@ -398,7 +453,9 @@
       <div class="lbl">Sales Team</div>
       <nav class="nav">
         <a class="on" data-go="sales-day"><span class="nico">◐</span>My day</a>
-        <a data-go="sales-cross"><span class="nico">⇄</span>Cross lookup</a>
+        <a data-go="sales-crossopps"><span class="nico">⌖</span>Target Sellers</a>
+        <a data-go="sales-myopps"><span class="nico">▥</span>My Opportunities</a>
+        <a data-go="sales-cross"><span class="nico">⇄</span>Cross reference</a>
         <a data-go="sales-hardware"><span class="nico">▭</span>Hardware demos</a>
       </nav>
     </div>
@@ -532,16 +589,24 @@
     <!-- ============ LEADERSHIP: CONVERSION ============ -->
     <section class="view" id="lead-conversion">
       <div class="ph">
-        <div><h1>Conversion engine</h1><p>Where WCO customers are buying competitor product that maps to an owned brand</p></div>
+        <div><h1>Conversion engine</h1><p>The full opportunity pool: every competitor line that crosses to an owned brand, who owns it, and what is still unclaimed</p></div>
         <div class="right"><span class="seg">Sorted by margin opportunity</span></div>
       </div>
+
+      <div class="leak">
+        <div class="ls"><div class="l-l"><span class="dot" style="background:var(--muted-2)"></span>Surfaced pool <span class="tgt" title="Open-quote / real-time signal: target dataset, not yet secured.">▲</span></div><div class="l-v">142</div><div class="l-s">$3.1M open · all territories</div></div>
+        <div class="ls"><div class="l-l"><span class="dot" style="background:var(--copper)"></span>Claimed &amp; working</div><div class="l-v">96</div><div class="l-s">owned by a seller</div></div>
+        <div class="ls alert"><div class="l-l"><span class="dot" style="background:var(--alert)"></span>Unclaimed</div><div class="l-v">46</div><div class="l-s">$0.9M at risk of leaking</div></div>
+        <div class="ls"><div class="l-l"><span class="dot" style="background:var(--gain)"></span>Converted QTD</div><div class="l-v">$612K</div><div class="l-s">+$193K margin</div></div>
+      </div>
+
       <div class="panel">
-        <div class="head"><h3>Top conversion targets</h3><span class="hint">competitor spend · owned-brand cross · margin lift</span></div>
+        <div class="head"><h3>Opportunity pool</h3><span class="hint">competitor spend · owned-brand cross · margin lift · owner</span></div>
         <div class="body" style="padding:0">
           <table>
             <thead><tr>
               <th>Customer</th><th>Competitor part</th><th></th><th>Owned-brand cross</th>
-              <th class="num">Comp. spend</th><th class="num">Margin lift</th><th>Status</th>
+              <th class="num">Comp. spend <span class="tgt" title="Open-quote / real-time signal: target dataset, not yet secured.">▲</span></th><th class="num">Margin lift</th><th>Owner</th><th>Status</th>
             </tr></thead>
             <tbody>
               <tr>
@@ -549,40 +614,62 @@
                 <td class="mono">EX-CAT6A-1000</td><td class="xarrow">→</td>
                 <td class="mono" style="color:var(--copper-d);font-weight:600">LIB-C6A-BLK-1K</td>
                 <td class="num">$142K</td><td class="num" style="color:var(--gain)">+$41K</td>
+                <td class="terr">M. Reyes</td>
                 <td><span class="badge warn">In progress</span></td>
               </tr>
               <tr>
-                <td><div class="nm">Crestline Systems</div><div class="terr">Midwest</div></td>
+                <td><div class="nm">Crestline Systems</div><div class="terr">Northeast</div></td>
                 <td class="mono">VX-HDB-T70</td><td class="xarrow">→</td>
                 <td class="mono" style="color:var(--copper-d);font-weight:600">LIB-AV-HDB70</td>
                 <td class="num">$98K</td><td class="num" style="color:var(--gain)">+$33K</td>
+                <td class="terr">M. Reyes</td>
                 <td><span class="badge cool">Demo scheduled</span></td>
-              </tr>
-              <tr>
-                <td><div class="nm">Northeast Sound &amp; Video</div><div class="terr">Northeast</div></td>
-                <td class="mono">SG-RACK-42U</td><td class="xarrow">→</td>
-                <td class="mono" style="color:var(--copper-d);font-weight:600">NET-ENC-42U</td>
-                <td class="num">$76K</td><td class="num" style="color:var(--gain)">+$28K</td>
-                <td><span class="badge flat">Identified</span></td>
               </tr>
               <tr>
                 <td><div class="nm">Summit Pro Audio</div><div class="terr">Southeast</div></td>
                 <td class="mono">PM-MNT-LG</td><td class="xarrow">→</td>
                 <td class="mono" style="color:var(--copper-d);font-weight:600">PB-LRG-TILT</td>
                 <td class="num">$61K</td><td class="num" style="color:var(--gain)">+$22K</td>
+                <td class="terr">M. Reyes</td>
                 <td><span class="badge gain">Converted</span></td>
+              </tr>
+              <tr>
+                <td><div class="nm">Delmar Integrators</div><div class="terr">Southeast</div></td>
+                <td class="mono">PM-MNT-LG</td><td class="xarrow">→</td>
+                <td class="mono" style="color:var(--copper-d);font-weight:600">PB-LRG-TILT</td>
+                <td class="num">$47K</td><td class="num" style="color:var(--gain)">+$17K</td>
+                <td class="terr">T. Okafor</td>
+                <td><span class="badge warn">In progress</span></td>
               </tr>
               <tr>
                 <td><div class="nm">Riverside Controls</div><div class="terr">West</div></td>
                 <td class="mono">EX-FIB-OM4</td><td class="xarrow">→</td>
                 <td class="mono" style="color:var(--copper-d);font-weight:600">LIB-OM4-LC</td>
                 <td class="num">$54K</td><td class="num" style="color:var(--gain)">+$19K</td>
+                <td class="terr">S. Klein</td>
                 <td><span class="badge warn">In progress</span></td>
+              </tr>
+              <tr>
+                <td><div class="nm">Beacon Integrators</div><div class="terr">Northeast</div></td>
+                <td class="mono">EX-CAT6A-1000</td><td class="xarrow">→</td>
+                <td class="mono" style="color:var(--copper-d);font-weight:600">LIB-C6A-BLK-1K</td>
+                <td class="num">$84K</td><td class="num" style="color:var(--gain)">+$24K</td>
+                <td class="terr">·</td>
+                <td><span class="badge" style="background:var(--alert-soft);color:var(--alert)">Unclaimed</span></td>
+              </tr>
+              <tr>
+                <td><div class="nm">Cedar Park Media</div><div class="terr">Midwest</div></td>
+                <td class="mono">SG-RACK-42U</td><td class="xarrow">→</td>
+                <td class="mono" style="color:var(--copper-d);font-weight:600">NET-ENC-42U</td>
+                <td class="num">$67K</td><td class="num" style="color:var(--gain)">+$25K</td>
+                <td class="terr">·</td>
+                <td><span class="badge" style="background:var(--alert-soft);color:var(--alert)">Unclaimed</span></td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
+      <p class="note-tgt">▲ Open-quote / real-time competitor activity (the surfaced pool and competitor spend) is a target dataset, not yet secured. Margin and owned-brand data read from governed WCO sources. Sample data shown.</p>
     </section>
 
     <!-- ============ LEADERSHIP: TEAM ============ -->
@@ -732,9 +819,9 @@
             <table>
               <thead><tr><th>Account</th><th>Stage</th><th class="num">Value</th><th class="num">Margin</th><th class="num">Fcst units</th></tr></thead>
               <tbody>
-                <tr><td class="nm">Crestline Systems</td><td><span class="stage-tag" style="color:var(--seller)">Demo</span></td><td class="num">$98K</td><td class="num" style="color:var(--gain)">+$33K</td><td class="num">120</td></tr>
+                <tr><td><div class="nm">T. Nakamura</div><div class="terr">Crestline Systems</div></td><td><span class="stage-tag" style="color:var(--seller)">Demo</span></td><td class="num">$98K</td><td class="num" style="color:var(--gain)">+$33K</td><td class="num">120</td></tr>
                 <tr><td class="nm">Riverside Controls</td><td><span class="stage-tag" style="color:var(--copper-d)">Eval</span></td><td class="num">$54K</td><td class="num" style="color:var(--gain)">+$19K</td><td class="num">70</td></tr>
-                <tr><td class="nm">Apex AV Integration</td><td><span class="stage-tag" style="color:var(--copper-d)">Quote</span></td><td class="num">$33K</td><td class="num" style="color:var(--gain)">+$11K</td><td class="num">40</td></tr>
+                <tr><td><div class="nm">R. Friedman</div><div class="terr">Apex AV Integration</div></td><td><span class="stage-tag" style="color:var(--copper-d)">Quote</span></td><td class="num">$33K</td><td class="num" style="color:var(--gain)">+$11K</td><td class="num">40</td></tr>
               </tbody>
             </table>
           </div>
@@ -780,15 +867,15 @@
             </div>
           </div>
           <div class="panel" style="margin:0">
-            <div class="head"><h3>My opportunities</h3><span class="hint">SKU-level · 6 open</span></div>
+            <div class="head"><h3>My opportunities</h3><button onclick="go('sales-myopps')" style="border:0;background:none;font-size:11.5px;font-weight:600;color:var(--copper-d);cursor:pointer">View all in My Opportunities →</button></div>
             <div class="body" style="padding:0">
               <table>
-                <thead><tr><th>Account</th><th>SKU</th><th>Stage</th><th class="num">Value</th><th class="num">Margin</th></tr></thead>
+                <thead><tr><th>Seller</th><th>SKU</th><th>Stage</th><th class="num">Value</th><th class="num">Margin</th></tr></thead>
                 <tbody>
-                  <tr><td class="nm">Apex AV Integration</td><td class="mono">LIB-C6A-BLK-1K</td><td><span class="stage-tag" style="color:var(--copper-d)">Quote</span></td><td class="num">$142K</td><td class="num" style="color:var(--gain)">+$41K</td></tr>
-                  <tr><td class="nm">Crestline Systems</td><td class="mono">LIB-AV-HDB70</td><td><span class="stage-tag" style="color:var(--seller)">Demo</span></td><td class="num">$98K</td><td class="num" style="color:var(--gain)">+$33K</td></tr>
-                  <tr><td class="nm">Northeast Sound &amp; Video</td><td class="mono">NET-ENC-42U</td><td><span class="stage-tag" style="color:var(--muted)">Discovery</span></td><td class="num">$76K</td><td class="num" style="color:var(--gain)">+$28K</td></tr>
-                  <tr><td class="nm">Harbor Point Media</td><td class="mono">LIB-OM4-LC</td><td><span class="stage-tag" style="color:var(--copper-d)">Quote</span></td><td class="num">$44K</td><td class="num" style="color:var(--gain)">+$15K</td></tr>
+                  <tr><td><div class="nm">R. Friedman</div><div class="terr">Apex AV Integration</div></td><td class="mono">LIB-C6A-BLK-1K</td><td><span class="stage-tag" style="color:var(--copper-d)">Quote</span></td><td class="num">$142K</td><td class="num" style="color:var(--gain)">+$41K</td></tr>
+                  <tr><td><div class="nm">T. Nakamura</div><div class="terr">Crestline Systems</div></td><td class="mono">LIB-AV-HDB70</td><td><span class="stage-tag" style="color:var(--seller)">Demo</span></td><td class="num">$98K</td><td class="num" style="color:var(--gain)">+$33K</td></tr>
+                  <tr><td><div class="nm">G. Mbeki</div><div class="terr">Northeast Sound &amp; Video</div></td><td class="mono">NET-ENC-42U</td><td><span class="stage-tag" style="color:var(--muted)">Discovery</span></td><td class="num">$76K</td><td class="num" style="color:var(--gain)">+$28K</td></tr>
+                  <tr><td><div class="nm">S. Petrov</div><div class="terr">Harbor Point Media</div></td><td class="mono">LIB-OM4-LC</td><td><span class="stage-tag" style="color:var(--copper-d)">Quote</span></td><td class="num">$44K</td><td class="num" style="color:var(--gain)">+$15K</td></tr>
                 </tbody>
               </table>
             </div>
@@ -808,10 +895,167 @@
       </div>
     </section>
 
-    <!-- ============ SALES: CROSS LOOKUP ============ -->
+    <!-- ============ SALES: CROSS OPPORTUNITIES (identify) ============ -->
+    <section class="view" id="sales-crossopps">
+      <div class="ph">
+        <div><h1>Target Sellers</h1><p>WCO sellers holding open competitor quotes that cross to an owned brand. Filter to a shortlist, then claim the ones you will work.</p></div>
+        <div class="right"><span class="seg" id="co-count">4 in pool</span></div>
+      </div>
+
+      <div class="calib">
+        <div class="presets" id="co-presets">
+          <span class="clbl">Calibration</span>
+          <button class="preset on" data-preset="all">All open</button>
+          <button class="preset" data-preset="margin" data-margin="12">Margin under 12%</button>
+          <button class="preset" data-preset="ne">Northeast territory</button>
+          <button class="preset" data-preset="cable">Cable &amp; connectivity</button>
+          <button class="preset" id="co-save" title="Save the current filters as a named, standing calibration">+ Save current</button>
+        </div>
+        <div class="crow">
+          <span class="clbl">Filter</span>
+          <select class="inp" id="f-brand" onchange="filterCO()" aria-label="Competitor brand">
+            <option value="">Any competitor brand</option>
+            <option>AV / signal</option>
+            <option>Cable / connectivity</option>
+            <option>Racks / enclosures</option>
+            <option>Mounts</option>
+          </select>
+          <input class="inp" id="f-sku" placeholder="SKU or part #" oninput="filterCO()" aria-label="SKU or part number">
+          <span class="clbl">Margin below</span>
+          <input class="inp num-in" id="f-margin" type="number" placeholder="%" oninput="filterCO()" aria-label="Margin below percent">
+          <select class="inp" id="f-terr" onchange="filterCO()" aria-label="Territory">
+            <option value="">Any territory</option>
+            <option>Northeast</option><option>Southeast</option><option>Midwest</option><option>West</option>
+          </select>
+          <label style="font-size:12.5px;color:var(--muted);display:inline-flex;align-items:center;gap:6px">
+            <input type="checkbox" id="f-open" checked onchange="filterCO()"> Open quote only <span class="tgt" title="Real-time open-quote activity is a target dataset, not yet secured. See the scope banner above.">▲</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="panel" style="margin:0">
+        <div class="head"><h3>Target list</h3><span class="hint">sample of the 142-line surfaced pool · claim a row to move it to My Opportunities</span></div>
+        <div class="body" style="padding:0">
+          <table>
+            <thead><tr>
+              <th>Target seller</th><th>Open quote <span class="tgt" title="Open-quote / real-time signal: target dataset, not yet secured.">▲</span></th><th></th>
+              <th>Owned-brand cross</th><th class="num">Margin lift</th><th>Closes</th><th>Surfaced by</th><th>Status</th><th></th>
+            </tr></thead>
+            <tbody id="co-tbody">
+              <tr data-brand="Cable / connectivity" data-terr="Northeast" data-margin="9" data-open="1"
+                  data-sku="ex-cat6a-1000 lib-c6a-blk-1k cat6a cable beacon integrators" data-acct="Beacon Integrators" data-seller="D. Hargrove" data-cross="LIB-C6A-BLK-1K" data-val="$84K" data-lift="+$24K">
+                <td><div class="nm">D. Hargrove</div><div class="terr">WCO · Northeast</div></td>
+                <td class="mono">EX-CAT6A-1000<div class="terr" style="font-family:var(--body)">Beacon Integrators · margin 9%</div></td>
+                <td class="xarrow">→</td>
+                <td class="mono xcross" style="color:var(--copper-d);font-weight:600">LIB-C6A-BLK-1K</td>
+                <td class="num liftc">+$24K</td>
+                <td><span class="urg soon">3 days</span></td>
+                <td><span class="surf">Margin &lt; 12%</span></td>
+                <td><span class="badge flat">New</span></td>
+                <td class="co-act"><button class="btn primary sm" onclick="claimOpp(this)">Select</button></td>
+              </tr>
+              <tr data-brand="Racks / enclosures" data-terr="Midwest" data-margin="26" data-open="1"
+                  data-sku="sg-rack-42u net-enc-42u rack enclosure cedar park media" data-acct="Cedar Park Media" data-seller="P. Salazar" data-cross="NET-ENC-42U" data-val="$67K" data-lift="+$25K">
+                <td><div class="nm">P. Salazar</div><div class="terr">WCO · Midwest</div></td>
+                <td class="mono">SG-RACK-42U<div class="terr" style="font-family:var(--body)">Cedar Park Media · margin 26%</div></td>
+                <td class="xarrow">→</td>
+                <td class="mono xcross" style="color:var(--copper-d);font-weight:600">NET-ENC-42U</td>
+                <td class="num liftc">+$25K</td>
+                <td><span class="urg soon">2 days</span></td>
+                <td><span class="surf">SKU: enclosures</span></td>
+                <td><span class="badge flat">New</span></td>
+                <td class="co-act"><button class="btn primary sm" onclick="claimOpp(this)">Select</button></td>
+              </tr>
+              <tr data-brand="AV / signal" data-terr="Northeast" data-margin="31" data-open="1"
+                  data-sku="vx-hdb-t70 lib-av-hdb70 hdbaset extender granite state av" data-acct="Granite State AV" data-seller="K. Whitfield" data-cross="LIB-AV-HDB70" data-val="$73K" data-lift="+$26K">
+                <td><div class="nm">K. Whitfield</div><div class="terr">WCO · Northeast</div></td>
+                <td class="mono">VX-HDB-T70<div class="terr" style="font-family:var(--body)">Granite State AV · margin 31%</div></td>
+                <td class="xarrow">→</td>
+                <td class="mono xcross" style="color:var(--copper-d);font-weight:600">LIB-AV-HDB70</td>
+                <td class="num liftc">+$26K</td>
+                <td><span class="urg mid">6 days</span></td>
+                <td><span class="surf">Brand: AV / signal</span></td>
+                <td><span class="badge flat">New</span></td>
+                <td class="co-act"><button class="btn primary sm" onclick="claimOpp(this)">Select</button></td>
+              </tr>
+              <tr data-brand="Cable / connectivity" data-terr="West" data-margin="11" data-open="1"
+                  data-sku="ex-fib-om4 lib-om4-lc fiber om4 tideline systems" data-acct="Tideline Systems" data-seller="M. Tran" data-cross="LIB-OM4-LC" data-val="$41K" data-lift="+$14K">
+                <td><div class="nm">M. Tran</div><div class="terr">WCO · West</div></td>
+                <td class="mono">EX-FIB-OM4<div class="terr" style="font-family:var(--body)">Tideline Systems · margin 11%</div></td>
+                <td class="xarrow">→</td>
+                <td class="mono xcross" style="color:var(--copper-d);font-weight:600">LIB-OM4-LC</td>
+                <td class="num liftc">+$14K</td>
+                <td><span class="urg far">9 days</span></td>
+                <td><span class="surf">Margin &lt; 12%</span></td>
+                <td><span class="badge flat">New</span></td>
+                <td class="co-act"><button class="btn primary sm" onclick="claimOpp(this)">Select</button></td>
+              </tr>
+              <tr class="claimed" data-brand="Mounts" data-terr="Southeast" data-margin="33" data-open="1"
+                  data-sku="pm-mnt-lg pb-lrg-tilt mount bracket delmar integrators" data-acct="Delmar Integrators" data-seller="L. Castellano" data-cross="PB-LRG-TILT" data-val="$47K" data-lift="+$17K">
+                <td><div class="nm">L. Castellano</div><div class="terr">WCO · Southeast</div></td>
+                <td class="mono">PM-MNT-LG<div class="terr" style="font-family:var(--body)">Delmar Integrators · margin 33%</div></td>
+                <td class="xarrow">→</td>
+                <td class="mono xcross" style="color:var(--copper-d);font-weight:600">PB-LRG-TILT</td>
+                <td class="num liftc">+$17K</td>
+                <td><span class="urg mid">5 days</span></td>
+                <td><span class="surf">Brand: mounts</span></td>
+                <td><span class="badge cool">In pipeline</span></td>
+                <td class="co-act"><span class="terr">T. Okafor</span></td>
+              </tr>
+              <tr class="claimed" data-brand="Cable / connectivity" data-terr="West" data-margin="30" data-open="1"
+                  data-sku="ex-fib-om4 lib-om4-lc fiber om4 riverside controls" data-acct="Riverside Controls" data-seller="B. Okoye" data-cross="LIB-OM4-LC" data-val="$54K" data-lift="+$19K">
+                <td><div class="nm">B. Okoye</div><div class="terr">WCO · West</div></td>
+                <td class="mono">EX-FIB-OM4<div class="terr" style="font-family:var(--body)">Riverside Controls · margin 30%</div></td>
+                <td class="xarrow">→</td>
+                <td class="mono xcross" style="color:var(--copper-d);font-weight:600">LIB-OM4-LC</td>
+                <td class="num liftc">+$19K</td>
+                <td><span class="urg mid">7 days</span></td>
+                <td><span class="surf">SKU: fiber</span></td>
+                <td><span class="badge cool">In pipeline</span></td>
+                <td class="co-act"><span class="terr">S. Klein</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p class="note-tgt">▲ Open-quote / real-time competitor activity is a target dataset, not yet secured. Everything else reads from governed WCO sales and margin data. Sample data shown.</p>
+    </section>
+
+    <!-- ============ SALES: MY OPPORTUNITIES (engage) ============ -->
+    <section class="view" id="sales-myopps">
+      <div class="ph">
+        <div><h1>My Opportunities</h1><p>Everything you have claimed and are working, traced to where it came from.</p></div>
+        <div class="right"><button class="btn primary" onclick="openLog()">+ Log activity</button></div>
+      </div>
+      <div class="srcfilt">
+        <span class="clbl">Source</span>
+        <button class="preset on" data-src="all" onclick="filterMy('all',this)">All</button>
+        <button class="preset" data-src="co" onclick="filterMy('co',this)">⌖ Target Sellers</button>
+        <button class="preset" data-src="cr" onclick="filterMy('cr',this)">⇄ Cross reference</button>
+        <button class="preset" data-src="em" onclick="filterMy('em',this)">✉ Email-drop</button>
+        <button class="preset" data-src="mn" onclick="filterMy('mn',this)">✎ Manual</button>
+      </div>
+      <div class="panel" style="margin:0">
+        <div class="head"><h3>Open &amp; recent</h3><span class="hint" id="my-count">5 opportunities</span></div>
+        <div class="body" style="padding:0">
+          <table>
+            <thead><tr><th>Seller</th><th>SKU</th><th>Source</th><th>Stage</th><th class="num">Value</th><th class="num">Margin lift</th><th>Last touch</th></tr></thead>
+            <tbody id="myopps-tbody">
+              <tr data-source="co"><td><div class="nm">R. Friedman</div><div class="terr">Apex AV Integration</div></td><td class="mono">LIB-C6A-BLK-1K</td><td><span class="badge warn">⌖ Target Sellers</span></td><td><span class="stage-tag" style="color:var(--copper-d)">Quote</span></td><td class="num">$142K</td><td class="num liftc">+$41K</td><td class="terr">2h ago</td></tr>
+              <tr data-source="cr"><td><div class="nm">T. Nakamura</div><div class="terr">Crestline Systems</div></td><td class="mono">LIB-AV-HDB70</td><td><span class="badge cool">⇄ Cross ref</span></td><td><span class="stage-tag" style="color:var(--seller)">Demo</span></td><td class="num">$98K</td><td class="num liftc">+$33K</td><td class="terr">Yda</td></tr>
+              <tr data-source="em"><td><div class="nm">G. Mbeki</div><div class="terr">Northeast Sound &amp; Video</div></td><td class="mono">NET-ENC-42U</td><td><span class="badge drop">✉ Email-drop</span></td><td><span class="stage-tag" style="color:var(--muted)">Discovery</span></td><td class="num">$76K</td><td class="num liftc">+$28K</td><td class="terr">3d</td></tr>
+              <tr data-source="mn"><td><div class="nm">S. Petrov</div><div class="terr">Harbor Point Media</div></td><td class="mono">LIB-OM4-LC</td><td><span class="badge flat">✎ Manual</span></td><td><span class="stage-tag" style="color:var(--copper-d)">Quote</span></td><td class="num">$44K</td><td class="num liftc">+$15K</td><td class="terr">5d</td></tr>
+              <tr data-source="co"><td><div class="nm">C. Donnelly</div><div class="terr">Summit Pro Audio</div></td><td class="mono">PB-LRG-TILT</td><td><span class="badge warn">⌖ Target Sellers</span></td><td><span class="stage-tag" style="color:var(--gain)">Won</span></td><td class="num">$61K</td><td class="num liftc">+$22K</td><td class="terr">1w</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SALES: CROSS REFERENCE ============ -->
     <section class="view" id="sales-cross">
       <div class="ph">
-        <div><h1>Cross lookup</h1><p>Competitor part in, owned-brand equivalent out · searchable, living database</p></div>
+        <div><h1>Cross reference</h1><p>Reference dictionary: competitor part in, owned-brand equivalent out · searchable, kept current</p></div>
         <div class="right"><button class="btn sm">+ Add cross</button></div>
       </div>
       <div class="xsearch">
@@ -842,7 +1086,7 @@
           <div class="xrow" data-q="pm-mnt-lg mount bracket probracket">
             <div class="xpart"><div class="brand">Competitor</div><div class="pn">PM-MNT-LG</div><div class="pd">Large tilt display mount</div></div>
             <div class="xarrow">→</div>
-            <div class="xpart xlib"><div class="brand">ProBracket</div><div class="pn">PB-LRG-TILT</div><div class="pd">Large tilt mount, 90–120"</div></div>
+            <div class="xpart xlib"><div class="brand">ProBracket</div><div class="pn">PB-LRG-TILT</div><div class="pd">Large tilt mount, 90-120"</div></div>
             <div class="xmeta">margin <b style="color:var(--gain)">+41%</b><br>stock <b>206</b></div>
           </div>
           <div class="xrow" data-q="ex-fib-om4 fiber om4 lco">
@@ -921,6 +1165,7 @@
 </div>
 
 <div class="wm">Wireframe · sample data</div>
+<div class="toast" id="toast"></div>
 
 <!-- GUIDED WALK-THROUGH -->
 <button class="tour-launch" id="tourLaunch" onclick="tourStart()">▶ Guided walk-through</button>
@@ -987,6 +1232,89 @@
     document.getElementById('xcount').textContent=n+(n===1?' cross':' crosses');
   }
 
+  // ---------- toast ----------
+  function showToast(msg){const t=document.getElementById('toast');if(!t)return;
+    t.textContent=msg;t.classList.add('on');clearTimeout(t._t);
+    t._t=setTimeout(()=>t.classList.remove('on'),2600);}
+
+  // ---------- cross opportunities (identify) ----------
+  const coVal=id=>{const e=document.getElementById(id);return e?e.value.trim():'';};
+  function filterCO(){
+    const brand=coVal('f-brand'),sku=coVal('f-sku').toLowerCase(),mgn=coVal('f-margin'),
+          terr=coVal('f-terr'),openOnly=document.getElementById('f-open').checked;
+    let n=0;
+    document.querySelectorAll('#co-tbody tr').forEach(tr=>{
+      let ok=true;
+      if(brand && tr.dataset.brand!==brand) ok=false;
+      if(sku && !(tr.dataset.sku||'').toLowerCase().includes(sku)) ok=false;
+      if(mgn && !(+tr.dataset.margin < +mgn)) ok=false;
+      if(terr && tr.dataset.terr!==terr) ok=false;
+      if(openOnly && tr.dataset.open!=='1') ok=false;
+      tr.style.display=ok?'':'none';
+      if(ok && !tr.classList.contains('claimed')) n++;
+    });
+    document.getElementById('co-count').textContent=n+' in pool';
+  }
+  // calibration presets set the underlying filters, then re-filter
+  document.querySelectorAll('#co-presets .preset[data-preset]').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('#co-presets .preset').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    document.getElementById('f-brand').value='';document.getElementById('f-sku').value='';
+    document.getElementById('f-margin').value='';document.getElementById('f-terr').value='';
+    const p=b.dataset.preset;
+    if(p==='margin') document.getElementById('f-margin').value=b.dataset.margin;
+    else if(p==='ne') document.getElementById('f-terr').value='Northeast';
+    else if(p==='cable') document.getElementById('f-brand').value='Cable / connectivity';
+    filterCO();
+  }));
+  const coSave=document.getElementById('co-save');
+  if(coSave) coSave.addEventListener('click',()=>showToast('Calibration saved · it will keep surfacing matches'));
+
+  // claim a target → moves to My Opportunities (source = Target Sellers)
+  function claimOpp(btn){
+    const tr=btn.closest('tr');
+    if(tr.classList.contains('claimed')) return;
+    tr.classList.add('claimed'); tr.dataset.open='0';
+    const tds=tr.children;
+    tds[tds.length-2].innerHTML='<span class="badge warn">✓ In your pipeline</span>';
+    tds[tds.length-1].innerHTML='<span class="terr">Claimed by you</span>';
+    const tb=document.getElementById('myopps-tbody');
+    const r=document.createElement('tr');
+    r.className='flash'; r.dataset.source='co';
+    r.innerHTML='<td><div class="nm">'+tr.dataset.seller+'</div><div class="terr">'+tr.dataset.acct+'</div></td>'+
+      '<td class="mono">'+tr.dataset.cross+'</td>'+
+      '<td><span class="badge warn">⌖ Target Sellers</span></td>'+
+      '<td><span class="stage-tag" style="color:var(--muted)">Discovery</span></td>'+
+      '<td class="num">'+tr.dataset.val+'</td>'+
+      '<td class="num liftc">'+tr.dataset.lift+'</td>'+
+      '<td class="terr">just now</td>';
+    tb.insertBefore(r,tb.firstChild);
+    const cell=r.querySelector('td.mono');
+    cell.classList.add('skulink'); cell.addEventListener('click',()=>openSku(curView()));
+    filterCO();
+    // reset the My Opportunities source filter so the just-claimed row is always visible
+    filterMy('all',document.querySelector('#sales-myopps .preset[data-src="all"]'));
+    showToast('Claimed · added to My Opportunities');
+  }
+
+  // ---------- my opportunities source filter (engage) ----------
+  let mySrc='all';
+  function filterMy(src,btn){
+    mySrc=src;
+    document.querySelectorAll('#sales-myopps .preset').forEach(x=>x.classList.toggle('on',x===btn));
+    applyMy();
+  }
+  function applyMy(){
+    let n=0;
+    document.querySelectorAll('#myopps-tbody tr').forEach(tr=>{
+      const ok=(mySrc==='all'||tr.dataset.source===mySrc);
+      tr.style.display=ok?'':'none'; if(ok) n++;
+    });
+    const el=document.getElementById('my-count');
+    if(el) el.textContent=n+(n===1?' opportunity':' opportunities');
+  }
+  filterCO(); applyMy();
+
   // demand chart · reused on inventory + SKU detail
   function renderDemand(elId){
     const X0=52,X1=782,Y0=232,YT=18,VMAX=360;
@@ -1026,7 +1354,7 @@
   function curView(){const v=document.querySelector('.view.on');return v?v.id:'lead-inventory';}
   function openSku(ret){skuReturn=ret||curView();go('sku-detail');window.scrollTo(0,0);}
   function skuBack(){go(skuReturn);window.scrollTo(0,0);}
-  ['#lead-inventory tbody td.mono','#sales-day tbody td.mono','#lead-conversion tbody td.mono','#xlist .xpart.xlib']
+  ['#lead-inventory tbody td.mono','#sales-day tbody td.mono','#lead-conversion tbody td.mono','#xlist .xpart.xlib','#sales-myopps tbody td.mono','#sales-crossopps td.xcross']
     .forEach(sel=>document.querySelectorAll(sel).forEach(c=>{
       c.classList.add('skulink');
       c.addEventListener('click',()=>openSku(curView()));
@@ -1035,25 +1363,28 @@
   // ---------- guided walk-through ----------
   const TOUR=[
     {persona:'lead',view:'lead-overview',sel:null,
-      title:'How a competitor part becomes won margin',
-      body:'A short tour of the engine: a competitor part a WCO customer buys, crossed to an owned brand, worked to a won deal, and measured. Sample data throughout.'},
+      title:'How Owned Brands helps sellers close opportunities and increase margin',
+      body:'A short tour of the Engine. A low-margin opportunity is identified. Its target SKUs are crossed to owned-brand equivalents. The OB sales team engages the WCO seller. Opportunities, wins, and losses are recorded and measured over time. Sample data throughout.'},
+    {persona:'sales',view:'sales-crossopps',sel:'#sales-crossopps .calib',
+      title:'Identify: who to call today',
+      body:'The WCO sellers holding open competitor quotes that cross to an owned brand, calibrated by saved filters: brand, SKU, margin target, territory. The open-quote signal is a target dataset, not yet secured; margin and sales read from governed WCO data. This runs the standing query the team used to work by hand.'},
+    {persona:'sales',view:'sales-crossopps',sel:'#co-tbody tr .co-act .btn',
+      title:'Claim it, so it cannot leak',
+      body:'Selecting a target turns a surfaced lead into an owned opportunity and moves it to My Opportunities. Every opportunity is captured the moment it is found.'},
+    {persona:'sales',view:'sales-myopps',sel:'#sales-myopps table',
+      title:'Engage: work it, traced to its source',
+      body:'Claimed opportunities collect here, filterable by where they came from: Target Sellers, Cross reference, an emailed-in note, or logged by hand. Calls, visits, and demos get logged against each.'},
     {persona:'sales',view:'sales-cross',sel:'#xlist .xrow:first-child',
-      title:'It starts with the cross',
-      body:'A competitor part in, the owned-brand equivalent and its margin out. One living, searchable database, kept current automatically.'},
-    {persona:'lead',view:'lead-conversion',sel:'#lead-conversion table',
-      title:'Crossed across the book, and captured',
-      body:'Every competitor part WCO customers buy is crossed, ranked by margin lift, and logged as a tracked opportunity with an owner and a status. The capture step the manual process never had.'},
+      title:'Cross reference: the living dictionary',
+      body:'Competitor part in, the owned-brand equivalent and its margin out. One searchable database behind every margin-lift number, kept current automatically.'},
+    {persona:'lead',view:'lead-conversion',sel:'#lead-conversion .leak',
+      title:'Leadership sees the whole pool',
+      body:'How big the surfaced pool is, how much is claimed and working, and what is still unclaimed and at risk of leaking. The capture step the manual process never had.'},
     {persona:'lead',view:'lead-overview',sel:'#lead-overview .loop',
-      title:'The whole funnel in one view',
-      body:'Identified competitor spend, crossed to an owned brand, in progress, then converted. Leadership watches value move from first signal to won margin.'},
-    {persona:'sales',view:'sales-day',sel:'#sales-day .feed',
-      title:'Worked, and logged',
-      body:'The team works those opportunities with calls, visits, and demos to WCO sellers and customers, all logged, including notes emailed straight in and parsed automatically.'},
-    {persona:'lead',view:'lead-overview',sel:'#lead-overview .kpis',
-      title:'Measured in revenue and margin',
-      body:'The result, tracked: owned-brand revenue and a lifted blended margin. Every number here traces back to a cross.'},
+      title:'Measured from first signal to won margin',
+      body:'Identified competitor spend, crossed to an owned brand, in progress, then converted. Leadership watches value move end to end.'},
     {persona:'lead',view:'lead-overview',sel:null,
-      title:'That is the engine',
+      title:'That is the Engine',
       body:'This is a wireframe on sample data: the intended experience, not a built product. The real version runs locally, with nothing leaving the tenant.'},
   ];
   let tStep=0;

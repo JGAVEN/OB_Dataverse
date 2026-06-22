@@ -72,17 +72,20 @@ Four pillars: **Win deals · Grow margin · Safe/governed · Cheap/feasible.**
 - Structure research (for reference): SCQA/Minto answer-first, Amazon PR-FAQ, HBR
   exec-summary, NN/g scan patterns. Hybrid was chosen.
 
-### Walk-through — BUILT & LIVE, mid-review
+### Walk-through — BUILT & LIVE, re-spined (ready for step-by-step review)
 - In `Project planning/index.html`. Self-contained guided tour: spotlight + popup,
   persona/view switching, keyboard nav (←/→/Esc), `?tour=1` deep-link auto-starts,
   `?tour=N` jumps to step N. Floating "▶ Guided walk-through" button (bottom-left).
-- **Being reviewed step-by-step with the user.** Step 1 corrected (below). Steps
-  are being realigned to the identify→cross→engage→measure arc.
-- **BLOCKED on §8:** the user says the tour's next step is wrong because the
-  wireframe is **missing the "Cross Opportunities" section** that beat 1 ("identify")
-  should point at. Build that section first, then resume the tour review.
+- **Re-spined to identify→cross→engage→measure (8 steps), now that the "identify"
+  screen exists.** Step 1 uses the corrected copy below (written to code). Every
+  step selector verified to resolve to a visible element. Still open for a
+  step-by-step pass with the user if desired.
+- Steps: (1) intro, (2) identify = Cross Opportunities calibration, (3) claim =
+  Select button, (4) engage = My Opportunities, (5) cross = Cross reference,
+  (6) measure/leak = Conversion engine leak strip, (7) measure = overview loop,
+  (8) wireframe disclaimer.
 
-**Step 1 corrected copy (logged, not yet written to code):**
+**Step 1 copy (now in code):**
 > Title: How Owned Brands helps sellers close opportunities and increase margin
 > Body: A short tour of the Engine. A low-margin opportunity is identified. Its
 > target SKUs are crossed to owned-brand equivalents. The OB sales team engages the
@@ -94,7 +97,32 @@ Four pillars: **Win deals · Grow margin · Safe/governed · Cheap/feasible.**
 - `Board pitch/build_brief.js`, `Owned_Brands_Board_Brief.docx/.pdf` — superseded by
   the single one-pager.
 
-## 8. ACTIVE TASK — build the "Cross Opportunities" section in the wireframe
+## 8. DONE — "Cross Opportunities" section built (2026-06-21)
+Built, multi-agent-reviewed, and verified live. **Decisions made & locked:**
+- **My Opportunities** is now its **own Sales nav view**, filterable by **source**
+  (Target Sellers · Cross reference · Email-drop · Manual). My-day keeps a
+  compact panel that links into it.
+- **Rename:** old "Cross lookup" → **"Cross reference"** (the part-to-part
+  dictionary). New worklist named **"Target Sellers"** (internal view id stays
+  `sales-crossopps`). Its rows are **WCO sellers (people) the OB team calls** (the
+  team's target customer), with the end-customer account shown as quote context;
+  claimed rows show the OB rep working it. WCO sellers are fictional (D. Hargrove,
+  P. Salazar, K. Whitfield, M. Tran, L. Castellano, B. Okoye).
+- **No leadership duplicate:** instead of a new leadership screen, the existing
+  **Conversion engine** was upgraded into leadership's lens on the *same* pipeline
+  (surfaced pool → claimed → unclaimed/leaking → converted, with an owner column).
+  Cross Opportunities (pool) + My Opportunities (claimed) + Conversion engine
+  (rollup) are three windows on one dataset; sample data reconciles across all three.
+- **Select** claims a pool row → routes it to My Opportunities (`source = Target
+  Sellers`), greys the source row, toasts. Open-quote/real-time data is
+  marked per-column as a not-yet-secured target on every screen that shows it.
+- A review workflow flagged a naming-collision concern; resolved by renaming the
+  worklist to "Opportunities" (above). Listing Cross reference as a
+  My-Opportunities source was **kept on purpose** (per your §8 spec).
+- **Status: pending your sign-off; not committed.** A `.claude/launch.json` was
+  added for the local preview server (hardcoded `python3.13` path, machine-specific).
+
+**Original spec (for reference):**
 Add a new section to `Project planning/index.html`. User's spec:
 - **Name:** "Cross Opportunities."
 - Surfaces opportunities from the **read-only datasets** we will gain access to.
@@ -143,9 +171,10 @@ Add a new section to `Project planning/index.html`. User's spec:
   `unpacked/`) is gitignored.
 
 ## 10. Immediate next steps for the new chat
-1. Confirm the **Cross Opportunities** design (§8) with the user, then build it.
-2. Resume the **walk-through step-by-step review** (§7) from Step 2, now that the
-   "identify" beat has a real screen to point at. Apply Step 1's corrected copy.
+1. **DONE:** Cross Opportunities built (§8). Awaiting user sign-off, then commit
+   (push to `main` redeploys Pages).
+2. Optional: **step-by-step walk-through review** (§7) with the user across the 8
+   re-spined steps. Step 1 copy + all selectors already in code and verified.
 3. Keep the **one-pager on hold** until the user delivers the §5 numbers; then
    reframe `build_memo.js` around the repositioning and finalize the single page.
 4. When finalizing, **remove the obsolete deck/brief files** (§7).

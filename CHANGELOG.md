@@ -6,6 +6,19 @@ All notable changes to this project are documented here. Format follows
 
 ## [Unreleased]
 ### Added
+- "Target Sellers" worklist on the wireframe (`Project planning/index.html`):
+  the missing "identify" screen for the Sales persona. Each row is a WCO seller
+  (the OB team's target customer) holding an open competitor quote that crosses to
+  an owned brand, with the end-customer account as context. Calibration bar (saved
+  presets plus brand / SKU / margin-below / territory / open-quote filters) and a
+  target list. A `Select` action claims a row and routes it to the new "My
+  Opportunities" view with `source = Target Sellers`. The not-yet-secured
+  open-quote / real-time signal is marked per-column (target dataset, not a
+  commitment).
+- "My Opportunities" view: the OB rep's claimed and worked pipeline, keyed by the
+  WCO seller (with the account as context), filterable by source (Target Sellers,
+  Cross reference, Email-drop, Manual). The "Margin under" calibration targets the
+  lowest-margin lines (sample threshold 12%).
 - Interactive guided walk-through on the wireframe (`Project planning/index.html`):
   a scenario-driven product tour (competitor part to cross to captured opportunity
   to worked to measured) with spotlight + popup, persona/view switching, keyboard
@@ -23,6 +36,15 @@ All notable changes to this project are documented here. Format follows
   hardware / budget request.
 
 ### Changed
+- Renamed the Sales "Cross lookup" view to "Cross reference" (the part-to-part
+  reference dictionary); the new worklist is "Target Sellers" (its rows are the WCO
+  sellers the OB team calls, not the end-customer companies), paired with "My
+  Opportunities".
+- Upgraded the Leadership "Conversion engine" into the leadership lens on the same
+  opportunity pipeline (surfaced pool, claimed and working, unclaimed/leaking,
+  converted) with an owner column, instead of adding a duplicate leadership screen.
+  Re-spined the guided walk-through to identify, cross, engage, measure across the
+  new screens. Sample data made consistent across all three opportunity views.
 - Recalibrated the board pitch per stakeholder review: reframed from "convert
   competitor sell-through for margin" to "give the Owned Brands team the data
   signals to help WCO sellers win deals and hold margin." Clarified that platform
